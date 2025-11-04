@@ -64,7 +64,7 @@
             <div class="row gy-4">
                 <div class="col-lg-12">
                     <div class="row gy-4 mb-4">
-                        <div class="col-sm-4 col-xxl-4 col-xl-4">
+                        <div class="col-sm-6 col-xxl-3 col-xl-3">
                             <a class="dashboard-widget--card position-relative"
                                 href="{{ route('admin.report.transaction') }}?search={{ $user->username }}">
                                 <div class="dashboard-widget__icon">
@@ -78,7 +78,7 @@
                                 <span class="arrow--btn position-absolute"><i class="fa-solid fa-chevron-right"></i></span>
                             </a>
                         </div>
-                        <div class="col-sm-4 col-xxl-4 col-xl-4">
+                        <div class="col-sm-6 col-xxl-3 col-xl-3">
                             <a class="dashboard-widget--card position-relative"
                                 href="{{ route('admin.report.transaction') }}?search={{ $user->username }}">
                                 <div class="dashboard-widget__icon">
@@ -91,8 +91,20 @@
                                 <span class="arrow--btn position-absolute"><i class="fa-solid fa-chevron-right"></i></span>
                             </a>
                         </div>
-                     
-                        <div class="col-sm-4 col-xxl-4 col-xl-4">
+                        <div class="col-sm-6 col-xxl-3 col-xl-3">
+                            <a class="dashboard-widget--card position-relative"
+                                href="{{ route('admin.report.transaction') }}?search={{ $user->username }}">
+                                <div class="dashboard-widget__icon">
+                                    <i class="dashboard-card-icon fa-solid fa-money-bill-transfer"></i>
+                                </div>
+                                <div class="dashboard-widget__content">
+                                    <span class="title">@lang('Withdrawals')</span>
+                                    <h5 class="number">{{ $general->cur_sym }}{{ showAmount($totalWithdrawals) }}</h5>
+                                </div>
+                                <span class="arrow--btn position-absolute"><i class="fa-solid fa-chevron-right"></i></span>
+                            </a>
+                        </div>
+                        <div class="col-sm-6 col-xxl-3 col-xl-3">
                             <a class="dashboard-widget--card position-relative"
                                 href="{{ route('admin.report.transaction') }}?search={{ $user->username }}">
                                 <div class="dashboard-widget__icon">

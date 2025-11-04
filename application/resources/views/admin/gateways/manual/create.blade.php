@@ -94,7 +94,6 @@
                                     </div>
                                 </div>
                             </div>
-
                         </div>
                         <div class="payment-method-body">
                             <div class="row gy-4">

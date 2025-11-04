@@ -19,54 +19,54 @@
                 </div>
             @endif
         @endif
-
         <div class="row gy-4">
             <div class="col-xl-12">
                 <div class="row gy-4">
                     <div class="col-xxl-3 col-xl-4 col-md-6">
-                        <a class="dashboard-widget--card position-relative" href="{{ route('admin.form.builder.index') }}">
+                        <a class="dashboard-widget--card position-relative" href="">
                             <div class="dashboard-widget__icon">
                                 <i class="dashboard-card-icon fa-regular fa-newspaper"></i>
                             </div>
                             <div class="dashboard-widget__content">
-                                <span class="title">@lang('Total Forms')</span>
-                                <h5 class="number">{{ $widget['total_forms'] }}</h5>
+                                <span class="title">@lang('Total surveys')</span>
+                                <h5 class="number"></h5>
                             </div>
                         </a>
                     </div>
 
                     <div class="col-xxl-3 col-xl-4 col-md-6">
-                        <a class="dashboard-widget--card position-relative" href="{{ route('admin.form.builder.index') }}">
+                        <a class="dashboard-widget--card position-relative"
+                            href="">
                             <div class="dashboard-widget__icon">
                                 <i class="dashboard-card-icon fa-solid fa-paste"></i>
                             </div>
                             <div class="dashboard-widget__content">
                                 <span class="title">@lang('Total Submissions')</span>
-                                <h5 class="number">{{ $widget['total_form_submissions'] }}</h5>
+                                <h5 class="number"></h5>
                             </div>
                         </a>
                     </div>
 
                     <div class="col-xxl-3 col-xl-4 col-md-6">
-                        <a class="dashboard-widget--card position-relative" href="{{ route('admin.plan.index') }}">
+                        <a class="dashboard-widget--card position-relative" href="{{ route('admin.category.index') }}">
                             <div class="dashboard-widget__icon">
                                 <i class="dashboard-card-icon fa-solid fa-calendar"></i>
                             </div>
                             <div class="dashboard-widget__content">
-                                <span class="title">@lang('Total Plans')</span>
-                                <h5 class="number">{{ $widget['total_plans'] }}</h5>
+                                <span class="title">@lang('Total Categories')</span>
+                                <h5 class="number">{{ $widget['total_categories'] }}</h5>
                             </div>
                         </a>
                     </div>
 
                     <div class="col-xxl-3 col-xl-4 col-md-6">
-                        <a class="dashboard-widget--card position-relative" href="{{ route('admin.plan.subscriptions') }}">
+                        <a class="dashboard-widget--card position-relative" href="{{ route('admin.ticket.index') }}">
                             <div class="dashboard-widget__icon">
                                 <i class="dashboard-card-icon fa-solid fa-ticket"></i>
                             </div>
                             <div class="dashboard-widget__content">
-                                <span class="title">@lang('Total Subscriptions')</span>
-                                <h5 class="number">{{ $widget['total_subscriptions'] }}</h5>
+                                <span class="title">@lang('Open Tickets')</span>
+                                <h5 class="number">{{ $widget['open_ticket'] }}</h5>
                             </div>
                         </a>
                     </div>
@@ -78,9 +78,9 @@
                 <div class="card bg--white br--solid">
                     <div class="card-body position-relative">
                         <div class="d-flex align-items-center justify-content-between border-bottom pb-3 mb-3">
-                            <h5 class="card-title mb-0">@lang('Monthly Payment & Plan Subscription Report')</h5>
+                            <h5 class="card-title mb-0">@lang('Monthly Payment & Withdraw Report')</h5>
                         </div>
-                        <div id="account-chart" data-plan_subscriptions="{{ base64_encode(json_encode($planSubscriptionChart)) }}"
+                        <div id="account-chart" data-withdrawals="{{ base64_encode(json_encode($withdrawalsChart)) }}"
                             data-deposits="{{ base64_encode(json_encode($depositsChart)) }}"></div>
                     </div>
                 </div>
@@ -245,6 +245,8 @@
                     </div>
                 </div>
             </div>
+
+
         </div>
     @else
         <div class="row">
@@ -265,10 +267,12 @@
         <script>
             (function($) {
                 'use strict';
+
                 const $chartData = $('#account-chart');
-                const planSubscriptionsEncoded = $chartData.data('plan_subscriptions');
+                const withdrawalsEncoded = $chartData.data('withdrawals');
                 const depositsEncoded = $chartData.data('deposits');
-                const planSubscriptionsChart = JSON.parse(atob(planSubscriptionsEncoded));
+
+                const withdrawalsChart = JSON.parse(atob(withdrawalsEncoded));
                 const depositsChart = JSON.parse(atob(depositsEncoded));
 
                 var options = {
@@ -295,10 +299,10 @@
                             horizontal: false
                         }
                     },
-                    colors: ['#FFA500', '#00A86B'],
+                    colors: ['#0091ff', '#00a86b'],
                     series: [{
-                            name: 'Plan Subscriptions',
-                            data: planSubscriptionsChart.values
+                            name: 'Withdrawals',
+                            data: withdrawalsChart.values
                         },
                         {
                             name: 'Deposits',

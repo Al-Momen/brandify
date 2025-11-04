@@ -71,9 +71,9 @@
                                 </div>
 
                                 <div class="col-md-6 col-xs-6">
-                                    <label class="required"> @lang('Credit cost per question Prompt')</label>
-                                    <input type="number" class="form-control" step="any".2 name="credit_cost_per_question_prompt"
-                                        value="{{ $general->credit_cost_per_question_prompt }}" placeholder="@lang('Per Credit')" required>
+                                    <label class="required"> @lang('Credit cost per logo')</label>
+                                    <input type="number" class="form-control" step="any".2 name="credit_cost_per_logo"
+                                        value="{{ $general->credit_cost_per_logo }}" placeholder="@lang('Per Credit')" required>
                                 </div>
 
                                 <div class="col-md-12 col-xs-12">

@@ -96,6 +96,16 @@ Route::middleware(['admin'])->group(function () {
         Route::post('delete/{key}', 'delete')->name('delete');
     });
 
+    
+    // Category
+    Route::middleware('admin.permission:category-management')->controller('CategoryController')->name('category.')->prefix('category')->group(function () {
+        Route::get('/{status?}', 'index')->name('index');
+        Route::post('store', 'store')->name('store');
+        Route::post('update/{id}', 'update')->name('update');
+        Route::post('status/{id}', 'status')->name('status');
+    });
+
+
     // KYC Management
     Route::middleware('admin.permission:kyc')->name('kyc.')->prefix('kyc')->controller('KycController')->group(function () {
         Route::get('setting', 'setting')->name('setting');

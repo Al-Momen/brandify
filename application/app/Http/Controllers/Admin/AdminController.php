@@ -3,22 +3,21 @@
 namespace App\Http\Controllers\Admin;
 
 use Carbon\Carbon;
-use App\Models\Plan;
 use App\Models\User;
+use App\Models\Survey;
 use App\Models\Deposit;
 use App\Lib\CurlRequest;
 use App\Constants\Status;
 use App\Models\UserLogin;
 use App\Models\Withdrawal;
-use App\Models\FormBuilder;
 use App\Models\Transaction;
-use App\Models\Subscription;
 use Illuminate\Http\Request;
 use App\Models\SupportTicket;
 use App\Rules\FileTypeValidate;
 use App\Models\AdminNotification;
-use App\Models\FormBuilderAnswer;
 use App\Http\Controllers\Controller;
+use App\Models\Category;
+use App\Models\SurveyAnswer;
 use Illuminate\Support\Facades\Hash;
 
 class AdminController extends Controller
@@ -26,26 +25,21 @@ class AdminController extends Controller
 
     public function dashboard()
     {
-        $pageTitle          = 'Dashboard';
-        $userQuery          = User::query();
-        $withdrawQuery      = Withdrawal::query();
-        $depositQuery       = Deposit::query();
-        $supportTicketQuery = SupportTicket::query();
-        $totalForms         = FormBuilder::whereIn('status', [Status::FORM_BUILDER_ENABLE, Status::FORM_BUILDER_DISABLE])->count();
-        $totalSubmissions   = FormBuilderAnswer::count();
-        $totalSubscriptions = Subscription::where('status', Status::PLAN_SUBSCRIPTION_APPROVED)->count();
-        $totalPlans         = Plan::where('status', Status::PLAN_ENABLE)->count();
-        $openTickets        = (clone $supportTicketQuery)->where('status', Status::TICKET_OPEN)->count();
+        $pageTitle              = 'Dashboard';
+        $userQuery              = User::query();
+        $withdrawQuery          = Withdrawal::query();
+        $depositQuery           = Deposit::query();
+        $supportTicketQuery     = SupportTicket::query();
+        $totalCategories        = Category::where('status',Status::CATEGORY_ENABLE)->count();
+        $openTickets            = (clone $supportTicketQuery)->where('status',Status::TICKET_OPEN)->count();
 
-        $widget                           = [];
-        $widget['total_deposit_amount']   = (clone $depositQuery)->successful()->sum('amount');
-        $widget['deposit_change']         = (clone $depositQuery)->successful()->sum('charge');
-        $widget['total_withdraw_amount']  = (clone $withdrawQuery)->approved()->sum('amount');
-        $widget['withdraw_change']        = (clone $withdrawQuery)->approved()->sum('charge');
-        $widget['total_forms']            = $totalForms;
-        $widget['total_form_submissions'] = $totalSubmissions;
-        $widget['total_plans']            = $totalPlans;
-        $widget['total_subscriptions']     = $totalSubscriptions;
+        $widget                             = [];
+        $widget['total_deposit_amount']     = (clone $depositQuery)->successful()->sum('amount');
+        $widget['deposit_change']           = (clone $depositQuery)->successful()->sum('charge');
+        $widget['total_withdraw_amount']    = (clone $withdrawQuery)->approved()->sum('amount');
+        $widget['withdraw_change']          = (clone $withdrawQuery)->approved()->sum('charge');
+        $widget['total_categories']         = $totalCategories;
+        $widget['open_ticket']              = $openTickets;
 
         $transactionQuery = Transaction::query();
         $widget['plus_transactions']  = (clone $transactionQuery)->where('trx_type', '+')->count();
@@ -54,7 +48,7 @@ class AdminController extends Controller
         $transactions = (clone $transactionQuery)->latest()->take(4)->get();
         $tickets      = (clone $supportTicketQuery)->with('user')->where('status', Status::TICKET_OPEN)->latest()->limit(5)->get();
 
-        $allMonths = collect(range(1, now()->month))->mapWithKeys(function ($month) {
+         $allMonths = collect(range(1, now()->month))->mapWithKeys(function ($month) {
             $name = date('F', mktime(0, 0, 0, $month, 1));
             return [$month => $name];
         });
@@ -77,23 +71,22 @@ class AdminController extends Controller
         ];
 
 
-        $planSubscriptionRaw = Subscription::selectRaw("SUM(amount) as amount, MONTHNAME(created_at) as month_name, MONTH(created_at) as month_num")
+        $withdrawalsRaw = Withdrawal::selectRaw("SUM(amount) as amount, MONTHNAME(created_at) as month_name, MONTH(created_at) as month_num")
             ->whereYear('created_at', now()->year)
-            ->where('status', Status::PLAN_SUBSCRIPTION_APPROVED)
+            ->where('status', Status::PAYMENT_SUCCESS)
             ->groupBy('month_name', 'month_num')
             ->orderBy('month_num')
             ->get()
             ->keyBy('month_num');
 
-        $planSubscriptionChart = [
+        $withdrawalsChart = [
             'labels' => $allMonths->values(),
-            'values' => $allMonths->keys()->map(function ($month) use ($planSubscriptionRaw) {
-                return optional($planSubscriptionRaw->get($month))->amount ?? 0;
+            'values' => $allMonths->keys()->map(function ($month) use ($withdrawalsRaw) {
+                return optional($withdrawalsRaw->get($month))->amount ?? 0;
             }),
         ];
 
-
-        return view('Admin::dashboard', compact('pageTitle', 'widget', 'planSubscriptionChart', 'depositsChart', 'tickets', 'transactions'));
+        return view('Admin::dashboard', compact('pageTitle', 'widget', 'withdrawalsChart', 'depositsChart', 'tickets', 'transactions'));
     }
 
 
@@ -109,7 +102,7 @@ class AdminController extends Controller
         $request->validate([
             'name' => 'required',
             'email' => 'required|email',
-            'image' => ['nullable', 'image', new FileTypeValidate(['jpg', 'jpeg', 'png'])]
+            'image' => ['nullable','image',new FileTypeValidate(['jpg','jpeg','png'])]
         ]);
         $user = auth('admin')->user();
 
@@ -156,16 +149,14 @@ class AdminController extends Controller
         return to_route('admin.profile')->withNotify($notify);
     }
 
-    public function notifications()
-    {
-        $notifications = AdminNotification::orderBy('id', 'desc')->with('user')->paginate(getPaginate());
+    public function notifications(){
+        $notifications = AdminNotification::orderBy('id','desc')->with('user')->paginate(getPaginate());
         $pageTitle = 'Notifications';
-        return view('Admin::notifications', compact('pageTitle', 'notifications'));
+        return view('Admin::notifications',compact('pageTitle','notifications'));
     }
 
 
-    public function notificationRead($id)
-    {
+    public function notificationRead($id){
         $notification = AdminNotification::findOrFail($id);
         $notification->read_status = Status::YES;
         $notification->save();
@@ -176,12 +167,11 @@ class AdminController extends Controller
         return redirect($url);
     }
 
-    public function readAll()
-    {
-        AdminNotification::where('read_status', Status::NO)->update([
-            'read_status' => Status::YES
+    public function readAll(){
+        AdminNotification::where('read_status',Status::NO)->update([
+            'read_status'=>Status::YES
         ]);
-        $notify[] = ['success', 'Notifications read successfully'];
+        $notify[] = ['success','Notifications read successfully'];
         return back()->withNotify($notify);
     }
 
@@ -190,10 +180,12 @@ class AdminController extends Controller
         $filePath = decrypt($fileHash);
         $extension = pathinfo($filePath, PATHINFO_EXTENSION);
         $general = gs();
-        $title = slug($general->site_name) . '- attachments.' . $extension;
+        $title = slug($general->site_name).'- attachments.'.$extension;
         $mimetype = mime_content_type($filePath);
         header('Content-Disposition: attachment; filename="' . $title);
         header("Content-Type: " . $mimetype);
         return readfile($filePath);
     }
+
+
 }

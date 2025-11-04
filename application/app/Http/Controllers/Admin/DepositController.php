@@ -62,12 +62,11 @@ class DepositController extends Controller
         ];
     }
 
-
     public function details($id)
     {
         $general   = gs();
         $deposit   = Deposit::where('id', $id)->with(['user', 'gateway'])->firstOrFail();
-        $type      = $deposit->subscription_id ? 'Plan Subscription Payment' : ($deposit->is_credit_purchase ? 'Credit Payment' : 'Deposit Payment');
+        $type      = $deposit->is_credit_purchase ? 'Credit Purchase' : 'Deposit';
         $pageTitle = "{$type} Request of " . showAmount($deposit->amount) . ' ' . $general->cur_text;
         $details   = ($deposit->detail != null) ? json_encode($deposit->detail) : null;
         return view('Admin::deposit.detail', compact('pageTitle', 'deposit', 'details'));
@@ -76,13 +75,12 @@ class DepositController extends Controller
 
     public function approve($id)
     {
-        $deposit = Deposit::with('subscription.plan')->where('id', $id)->where('status', Status::PAYMENT_PENDING)->firstOrFail();
+        $deposit = Deposit::with('survey')->where('id', $id)->where('status', Status::PAYMENT_PENDING)->firstOrFail();
 
         PaymentController::userDataUpdate($deposit, true);
 
-        $type = $deposit->subscription_id ? 'Plan Subscription Payment' : ($deposit->is_credit_purchase ? 'Credit Payment' : 'Deposit Payment');
+        $type = $deposit->survey_id ? 'Survey Payment' : ($deposit->is_credit_purchase ? 'Credit Payment' : 'Deposit Payment');
         $notify[] = ['success', "{$type} request approved successfully"];
-
 
         return to_route('admin.deposit.log')->withNotify($notify);
     }
@@ -90,16 +88,16 @@ class DepositController extends Controller
     public function reject(Request $request)
     {
         $request->validate([
-            'id'      => 'required|integer',
+            'id' => 'required|integer',
             'message' => 'required|string|max:255'
         ]);
-        $deposit = Deposit::with('subscription')->where('id', $request->id)->where('status', Status::PAYMENT_PENDING)->firstOrFail();
+        $deposit = Deposit::with('survey')->where('id', $request->id)->where('status', Status::PAYMENT_PENDING)->firstOrFail();
 
         $deposit->admin_feedback = $request->message;
         $deposit->status = Status::PAYMENT_REJECT;
         $deposit->save();
 
-        $type = $deposit->subscription_id ? 'Plan Subscription Payment' : ($deposit->is_credit_purchase ? 'Credit Payment' : 'Deposit Payment');
+        $type = $deposit->survey_id ? 'Survey Payment' : ($deposit->is_credit_purchase ? 'Credit Payment' : 'Deposit Payment');
 
         $notifyData = [
             'method_name'       => $deposit->gatewayCurrency()->name,
@@ -115,11 +113,11 @@ class DepositController extends Controller
         if ($deposit->is_credit_purchase) {
             $notifyData['number_of_credit'] = $deposit->number_of_credit;
             notify($deposit->user, 'CREDIT_PAYMENT_REJECT', $notifyData);
-        } elseif ($deposit->subscription) {
-            $deposit->subscription->status = Status::PLAN_SUBSCRIPTION_REJECT;
-            $deposit->subscription->save();
+        } elseif ($deposit->survey_id) {
+            $deposit->survey->status = Status::SURVEY_REJECTED;
+            $deposit->survey->save();
             $notifyData['trx'] = $deposit->trx;
-            notify($deposit->user, 'PLAN_SUBSCRIPTION_PAYMENT_REJECT', $notifyData);
+            notify($deposit->user, 'SURVEY_PAYMENT_REJECT', $notifyData);
         } else {
             $notifyData['trx'] = $deposit->trx;
             notify($deposit->user, 'DEPOSIT_REJECT', $notifyData);

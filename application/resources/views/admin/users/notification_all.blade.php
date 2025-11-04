@@ -390,7 +390,7 @@
             });
             @empty(!$sessionData)
                 $(document).ready(function() {
-                    'use strict';
+                     'use strict';
                     const coalingTimeOut = setTimeout(() => {
                         let coalingTime = Number("{{ $sessionData['cooling_time'] }}");
                         $("#animate-circle").css({

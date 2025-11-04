@@ -3,7 +3,8 @@
     <div class="sidebar__inner">
         <div class="sidebar__logo">
             <a href="{{ route('admin.dashboard') }}" class="sidebar__main-logo"><img src="{{ siteLogo() }}"
-                    alt="@lang('image')"></a>
+                    alt="@lang('image')">
+            </a>
         </div>
 
         <div class="sidebar__menu-wrapper">
@@ -80,7 +81,7 @@
                                     </li>
                                 @endadminHas
 
-                      
+
 
                                 @adminHas('subscriber-management')
                                     <li class="sidebar-menu-item {{ menuActive(['admin.subscriber.*']) }}">
@@ -96,58 +97,15 @@
                 @endadminHasAny
 
 
-                @adminHasAny('plan-management')
-                    <li class="sidebar-menu-item sidebar-dropdown {{ menuActive('admin.plan.*', 'admin.subscription.*') }}">
-                        <a href="javascript:void(0)" class="{{ menuActive(['admin.plan.*', 'admin.subscription.*'], 3) }}">
-                            <i class="menu-icon fa-solid fa-repeat"></i>
-                            <span class="menu-title">@lang('Plans')</span>
+                @adminHasAny(['category-management'])
+                    <li class="sidebar-menu-item {{ menuActive(['admin.category.*']) }}">
+                        <a href="{{ route('admin.category.index') }}" class="nav-link ">
+                            <i class="menu-icon fa-solid fa-table"></i>
+                            <span class="menu-title"> @lang('Categories')</span>
                         </a>
-                        <div class="sidebar-submenu {{ menuActive(['admin.plan.*', 'admin.subscription.*'], 2) }} ">
-                            <ul>
-                                @adminHas('plan-management')
-                                    <li class="sidebar-menu-item {{ menuActive(['admin.plan.index','admin.plan.create','admin.plan.edit']) }}">
-                                        <a href="{{ route('admin.plan.index') }}" class="nav-link ">
-                                            <i class="menu-icon fa-solid fa-circle"></i>
-                                            <span class="menu-title"> @lang('Pricing')</span>
-                                        </a>
-                                    </li>
-                                @endadminHas
-
-                                @adminHas('subscriptions-management')
-                                    <li class="sidebar-menu-item {{ menuActive(['admin.plan.subscriptions']) }}">
-                                        <a href="{{ route('admin.plan.subscriptions') }}" class="nav-link ">
-                                            <i class="menu-icon fa-solid fa-circle"></i>
-                                            <span class="menu-title"> @lang('Subscription')</span>
-                                        </a>
-                                    </li>
-                                @endadminHas
-                            </ul>
-                        </div>
                     </li>
                 @endadminHasAny
 
-                @adminHasAny('form-builder-management')
-                    <li class="sidebar-menu-item sidebar-dropdown {{ menuActive('admin.form.builder.*') }}">
-                        <a href="javascript:void(0)" class="{{ menuActive(['admin.form.builder.*'], 3) }}">
-                            <i class="menu-icon fa-solid fa-clipboard-list"></i>
-                            <span class="menu-title">@lang('Form Builder')</span>
-                        </a>
-                        <div class="sidebar-submenu {{ menuActive(['admin.form.builder.*'], 2) }} ">
-                            <ul>
-                                @adminHas('form-builder-management')
-                                    <li class="sidebar-menu-item {{ menuActive(['admin.form.builder.index']) }}">
-                                        <a href="{{ route('admin.form.builder.index') }}" class="nav-link ">
-                                            <i class="menu-icon fa-solid fa-circle"></i>
-                                            <span class="menu-title"> @lang('Form List')</span>
-                                        </a>
-                                    </li>
-                                @endadminHas
-
-                            
-                            </ul>
-                        </div>
-                    </li>
-                @endadminHasAny
 
                 @adminHasAny(['deposit-management', 'payment-method'])
                     <li
@@ -193,7 +151,7 @@
                     </li>
                 @endadminHasAny
 
-        
+
 
 
 
