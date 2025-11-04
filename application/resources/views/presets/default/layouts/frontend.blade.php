@@ -12,8 +12,7 @@
     <link rel="stylesheet" href="{{ asset('assets/common/css/all.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/common/css/line-awesome.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/common/css/select2.min.css') }}">
-    <link rel="stylesheet" href="{{ asset($activeTemplateTrue . 'css/magnific-popup.css') }}">
-    <link rel="stylesheet" href="{{ asset($activeTemplateTrue . 'css/jquery.bxslider.min.css') }}">
+    <link rel="stylesheet" href="{{ asset($activeTemplateTrue . 'css/swiper-bundle.min.css') }}">
     <link rel="stylesheet" href="{{ asset($activeTemplateTrue . 'css/main.css') }}">
     <link rel="stylesheet" href="{{ asset($activeTemplateTrue . 'css/custom.css') }}">
     @stack('style')
@@ -23,7 +22,7 @@
 </head>
 
 <body>
-    @include('Template::components.loader')
+    {{-- @include('Template::components.loader') --}}
     @if (!isPageRoute())
         @include('Template::components.header')
     @endif
@@ -47,8 +46,7 @@
     <script src="{{ asset('assets/common/js/jquery-3.7.1.min.js') }}"></script>
     <script src="{{ asset('assets/common/js/bootstrap.bundle.min.js') }}"></script>
     <script src="{{ asset('assets/common/js/select2.min.js') }}"></script>
-    <script src="{{ asset($activeTemplateTrue . 'js/jquery.bxslider.min.js') }}"></script>
-    <script src="{{ asset($activeTemplateTrue . 'js/magnific-popup.min.js') }}"></script>
+    <script src="{{ asset($activeTemplateTrue . 'js/swiper-bundle.min.js') }}"></script>
     <script src="{{ asset($activeTemplateTrue . 'js/odometer.min.js') }}"></script>
     <script src="{{ asset($activeTemplateTrue . 'js/scrollreveal.min.js') }}"></script>
     <script src="{{ asset($activeTemplateTrue . 'js/main.js') }}"></script>

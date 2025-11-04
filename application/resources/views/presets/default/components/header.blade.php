@@ -15,6 +15,7 @@
 <!--==========================  Overlay Start  ==========================-->
 <div class="overlay"></div>
 <!--==========================  Overlay End  ==========================-->
+
 <!--==========================  Offcanvas Section Start  ==========================-->
 <div class="offcanvas__area">
     <div class="offcanvas__topbar">
@@ -48,27 +49,24 @@
                 </div>
             </div>
             <div class="offcanvas__login">
-
-                <div class="dropdown">
-                    <button class="dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        @lang('Account')
-                    </button>
-                    <ul class="dropdown-menu">
-                        @auth
+                @auth
+                    <div class="dropdown">
+                        <button class="dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            @lang('Account')
+                        </button>
+                        <ul class="dropdown-menu">
                             <li>
                                 <a href="{{ route('user.home') }}" class="dropdown-item">@lang('Dashboard')</a>
                             </li>
                             <li>
                                 <a href="{{ route('user.logout') }}"class="dropdown-item">@lang('Logout')</a>
                             </li>
-                        @endauth
-                        @guest
-                            <li>
-                                <a href="{{ route('user.login') }}" class="dropdown-item">@lang('Sign In')</a>
-                            </li>
-                        @endguest
-                    </ul>
-                </div>
+                        </ul>
+                    </div>
+                @endauth
+                @guest
+                    <a href="{{ route('user.login') }}"><i class="fa-regular fa-user"></i>@lang('Sign In')</a>
+                @endguest
             </div>
         </div>
         <div class="offcanvas__menu">
@@ -102,10 +100,12 @@
         <div class="row">
             <div class="col-lg-12">
                 <div class="header__main">
-                    <a href="{{ route('home') }}" class="main__logo">
-                        <img src="{{ getImage(getFilePath('logoIcon') . '/logo.png', '?' . time()) }}"
-                            alt="@lang('logo')">
-                    </a>
+                    <div class="header__logo">
+                        <a href="{{ route('home') }}" class="main__logo">
+                            <img src="{{ getImage(getFilePath('logoIcon') . '/logo.png', '?' . time()) }}"
+                                alt="@lang('logo')">
+                        </a>
+                    </div>
                     <div class="header__menu">
                         <ul>
                             @foreach ($pages as $k => $data)
@@ -146,34 +146,36 @@
                             </ul>
                         </div>
                         <div class="header__login">
-                            <div class="dropdown">
-                                <button class="dropdown-toggle" type="button" data-bs-toggle="dropdown"
-                                    aria-expanded="false">
-                                    @lang('Account')
-                                </button>
-                                <ul class="dropdown-menu">
-                                    @auth
+                            @auth
+                                <div class="dropdown">
+                                    <button class="dropdown-toggle" type="button" data-bs-toggle="dropdown"
+                                        aria-expanded="false">
+                                        @lang('Account')
+                                    </button>
+                                    <ul class="dropdown-menu">
                                         <li>
                                             <a href="{{ route('user.home') }}" class="dropdown-item">@lang('Dashboard')</a>
                                         </li>
                                         <li>
-                                            <a href="{{ route('user.profile.setting') }}" class="dropdown-item">@lang('Profile Setting')</a>
+                                            <a href="{{ route('user.profile.setting') }}"
+                                                class="dropdown-item">@lang('Profile Setting')</a>
                                         </li>
                                         <li>
-                                            <a href="{{ route('user.twofactor') }}" class="dropdown-item">@lang('2FA Security')</a>
+                                            <a href="{{ route('user.twofactor') }}"
+                                                class="dropdown-item">@lang('2FA Security')</a>
                                         </li>
-                                       
+
                                         <li>
-                                            <a href="{{ route('user.logout') }}" class="dropdown-item">@lang('Logout')</a>
+                                            <a href="{{ route('user.logout') }}"
+                                                class="dropdown-item">@lang('Logout')</a>
                                         </li>
-                                    @endauth
-                                    @guest
-                                        <li>
-                                            <a href="{{ route('user.login') }}" class="dropdown-item">@lang('Sign In')</a>
-                                        </li>
-                                    @endguest
-                                </ul>
-                            </div>
+                                    </ul>
+                                </div>
+                            @endauth
+                            @guest
+                                <a href="{{ route('user.login') }}"><i
+                                        class="fa-regular fa-user"></i>@lang('Sign In')</a>
+                            @endguest
                         </div>
                     </div>
                     <span class="menu__open"><i class="fa-solid fa-bars"></i></span>

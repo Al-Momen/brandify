@@ -1,30 +1,27 @@
 {
     "banner": {
-        "builder"     : true,
+        "builder": true,
         "no_selection": true,
-        "name"        : "Banner Section",
-        "content"     : {
-            "title"     : "text",
-            "heading"   : "text",
-            "subheading": "text",
-            "button_one": "text",
-            "button_two": "text",
-            "images"    : {
-                "image_one": {
-                    "size": "605x385"
-                },
-                "image_two": {
-                    "size": "110x85"
+        "name": "Banner Section",
+        "content": {
+            "heading": "text",
+            "subheading": "text"
+        },
+        "element": {
+            "images": {
+                "image": {
+                    "size": "195x205"
                 }
-            }
+            },
+            "modal": true
         }
     },
 
     "brand": {
-        "builder"     : true,
+        "builder": true,
         "no_selection": false,
-        "name"        : "Brand Section",
-        "content"     : {
+        "name": "Brand Section",
+        "content": {
             "heading": "text"
         },
         "element": {
@@ -39,18 +36,18 @@
 
     "feature": {
         "builder": true,
-        "name"   : "Feature Section",
+        "name": "Feature Section",
         "content": {
-            "title"     : "text",
-            "heading"   : "text",
+            "title": "text",
+            "heading": "text",
             "subheading": "text"
         },
         "element": {
-            "title"      : "text",
-            "heading"    : "text",
+            "title": "text",
+            "heading": "text",
             "description": "textarea-rich",
             "button_name": "text",
-            "images"     : {
+            "images": {
                 "image_one": {
                     "size": "420x375"
                 },
@@ -63,34 +60,34 @@
     },
     "how_it_work": {
         "builder": true,
-        "name"   : "How It Work Section",
+        "name": "How It Work Section",
         "content": {
-            "title"     : "text",
-            "heading"   : "text",
+            "title": "text",
+            "heading": "text",
             "subheading": "text"
         },
         "element": {
-            "heading"   : "text",
+            "heading": "text",
             "subheading": "text",
-            "modal"     : true
+            "modal": true
         }
     },
     "use_cases": {
         "builder": true,
-        "name"   : "Use Cases Section",
+        "name": "Use Cases Section",
         "content": {
-            "title"     : "text",
-            "heading"   : "text",
+            "title": "text",
+            "heading": "text",
             "subheading": "text",
-            "images"    : {
+            "images": {
                 "image": {
                     "size": "210x150"
                 }
             }
         },
         "element": {
-            "title" : "text",
-            "icon"  : "icon",
+            "title": "text",
+            "icon": "icon",
             "images": {
                 "image": {
                     "size": "600x465"
@@ -102,21 +99,21 @@
 
     "pricing": {
         "builder": true,
-        "name"   : "Pricing Section",
+        "name": "Pricing Section",
         "content": {
-            "title"     : "text",
-            "heading"   : "text",
+            "title": "text",
+            "heading": "text",
             "subheading": "text"
         }
     },
     "faq": {
         "builder": true,
-        "name"   : "FAQ Section",
+        "name": "FAQ Section",
         "content": {
-            "title"     : "text",
-            "heading"   : "text",
+            "title": "text",
+            "heading": "text",
             "subheading": "text",
-            "images"    : {
+            "images": {
                 "image": {
                     "size": "624x245"
                 }
@@ -124,18 +121,18 @@
         },
         "element": {
             "question": "text",
-            "answer"  : "textarea-rich",
-            "modal"   : true
+            "answer": "textarea-rich",
+            "modal": true
         }
     },
     "about": {
         "builder": true,
-        "name"   : "About Section",
+        "name": "About Section",
         "content": {
-            "title"     : "text",
-            "heading"   : "text",
+            "title": "text",
+            "heading": "text",
             "subheading": "text",
-            "images"    : {
+            "images": {
                 "image": {
                     "size": "575x510"
                 }
@@ -143,16 +140,16 @@
         },
         "element": {
             "key_feature": "text",
-            "modal"   : true
+            "modal": true
         }
     },
     "testimonial": {
         "builder": true,
-        "name"   : "Testimonial Section",
+        "name": "Testimonial Section",
         "element": {
             "location": "text",
-            "title"   : "text",
-            "images"  : {
+            "title": "text",
+            "images": {
                 "image": {
                     "size": "70x70"
                 }
@@ -163,67 +160,66 @@
 
     "blog": {
         "builder": true,
-        "name"   : "Blog Section",
+        "name": "Blog Section",
         "content": {
-            "title"     : "text",
-            "heading"   : "text",
+            "title": "text",
+            "heading": "text",
             "subheading": "text"
-           
         },
         "element": {
             "images": {
                 "blog_image": {
-                    "size" : "965x600",
+                    "size": "965x600",
                     "thumb": "415x260"
                 }
             },
-            "title"      : "text",
-            "quote"      : "textarea",
+            "title": "text",
+            "quote": "textarea",
             "description": "textarea-rich",
-            "modal"      : false
+            "modal": false
         }
     },
 
     "policy_pages": {
-        "builder"     : false,
+        "builder": false,
         "no_selection": true,
-        "name"        : "Policy Pages",
-        "element"     : {
-            "title"  : "text",
+        "name": "Policy Pages",
+        "element": {
+            "title": "text",
             "details": "textarea-rich",
-            "modal"  : false
+            "modal": false
         }
     },
 
     "social_icon": {
-        "builder"     : true,
+        "builder": true,
         "no_selection": true,
-        "name"        : "Social Icons",
-        "element"     : {
-            "title"      : "text",
+        "name": "Social Icons",
+        "element": {
+            "title": "text",
             "social_icon": "icon",
-            "url"        : "text",
-            "modal"      : true
+            "url": "text",
+            "modal": true
         }
     },
 
-   "contact_us": {
-        "builder"     : true,
+    "contact_us": {
+        "builder": true,
         "no_selection": true,
-        "name"        : "Contact Us",
-        "content"     : {
-            "top_heading"         : "text",
-            "heading"             : "text",
-            "button_text"         : "text",
-            "short_description"   : "text",
+        "name": "Contact Us",
+        "content": {
+            "top_heading": "text",
+            "heading": "text",
+            "button_text": "text",
+            "short_description": "text",
             "footer_short_details": "text",
-            "email_address"       : "text",
-            "contact_details"     : "text",
-            "contact_number"      : "text",
-            "support_number"      : "text",
-            "latitude"            : "text",
-            "longitude"           : "text",
-            "website_footer"      : "textarea-rich"
+            "email_address": "text",
+            "contact_details": "text",
+            "contact_number": "text",
+            "support_number": "text",
+            "latitude": "text",
+            "longitude": "text",
+            "website_footer": "textarea-rich"
         }
     }
 }

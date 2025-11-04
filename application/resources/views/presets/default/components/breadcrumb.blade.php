@@ -1,12 +1,8 @@
 <!-- ==================== Breadcrumb Start Here ==================== -->
 <section class="breadcrumb">
     <div class="breadcrumb__shape">
-        <img src="{{ asset($activeTemplateTrue . 'images/shape/shape.png') }}" alt="@lang('shape-image')">
+        <img src="{{ asset($activeTemplateTrue . 'images/shape/blar-shape.png') }}" alt="@lang('shape-image')">
     </div>
-    <div class="breadcrumb__shape">
-        <img src="{{ asset($activeTemplateTrue . 'images/shape/shape.png') }}" alt="@lang('shape-image')">
-    </div>
-    <div class="glove--base"></div>
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-lg-8">
