@@ -5,7 +5,7 @@
         ->where('code', 'company_link')
         ->first();
     $quickLinks = App\Models\Menu::with(['items', 'menuItems'])
-        ->where('code', 'quick_link')
+        ->where('code', 'important_link')
         ->first();
     $policyLinks = getContent('policy_pages.element', false, null, true);
 @endphp
@@ -80,8 +80,8 @@
                         @foreach ($quickLinks->items ?? [] as $k => $data)
                             @if ($data->link_type == 2)
                                 <li>
-                                    <a href="{{ $data->url ?? '' }}" target="_blank"><i
-                                            class="fa-solid fa-caret-right"></i> {{ __($data->title) }}</a>
+                                    <a href="{{ $data->url ?? '' }}" target="_blank">
+                                        <i class="fa-solid fa-caret-right"></i> {{ __($data->title) }}</a>
                                 </li>
                             @else
                                 <li>

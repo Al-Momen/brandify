@@ -17,141 +17,81 @@
         }
     },
 
-    "brand": {
+    "counter": {
         "builder": true,
         "no_selection": false,
-        "name": "Brand Section",
-        "content": {
-            "heading": "text"
-        },
-        "element": {
-            "images": {
-                "brand_image": {
-                    "size": "190x40"
-                }
-            },
-            "modal": true
-        }
-    },
-
-    "feature": {
-        "builder": true,
-        "name": "Feature Section",
-        "content": {
-            "title": "text",
-            "heading": "text",
-            "subheading": "text"
-        },
+        "name": "Counter Section",
         "element": {
             "title": "text",
-            "heading": "text",
-            "description": "textarea-rich",
-            "button_name": "text",
-            "images": {
-                "image_one": {
-                    "size": "420x375"
-                },
-                "image_two": {
-                    "size": "120x90"
-                }
-            },
-            "modal": false
-        }
-    },
-    "how_it_work": {
-        "builder": true,
-        "name": "How It Work Section",
-        "content": {
-            "title": "text",
-            "heading": "text",
-            "subheading": "text"
-        },
-        "element": {
-            "heading": "text",
-            "subheading": "text",
-            "modal": true
-        }
-    },
-    "use_cases": {
-        "builder": true,
-        "name": "Use Cases Section",
-        "content": {
-            "title": "text",
-            "heading": "text",
-            "subheading": "text",
-            "images": {
-                "image": {
-                    "size": "210x150"
-                }
-            }
-        },
-        "element": {
-            "title": "text",
+            "counter": "number",
             "icon": "icon",
-            "images": {
-                "image": {
-                    "size": "600x465"
-                }
-            },
-            "modal": false
+            "modal": true
         }
     },
 
-    "pricing": {
+    "service": {
         "builder": true,
-        "name": "Pricing Section",
+        "no_selection": false,
+        "name": "Service Section",
         "content": {
-            "title": "text",
             "heading": "text",
             "subheading": "text"
-        }
-    },
-    "faq": {
-        "builder": true,
-        "name": "FAQ Section",
-        "content": {
-            "title": "text",
+        },
+        "element": {
             "heading": "text",
             "subheading": "text",
             "images": {
                 "image": {
-                    "size": "624x245"
+                    "size": "380x345"
                 }
-            }
-        },
-        "element": {
-            "question": "text",
-            "answer": "textarea-rich",
+            },
             "modal": true
         }
     },
-    "about": {
+
+    "action": {
         "builder": true,
-        "name": "About Section",
+        "no_selection": false,
+        "name": "Action Section",
         "content": {
-            "title": "text",
             "heading": "text",
-            "subheading": "text",
+            "subheading": "text"
+        },
+        "element": {
             "images": {
                 "image": {
-                    "size": "575x510"
+                    "size": "525x605"
                 }
-            }
-        },
-        "element": {
-            "key_feature": "text",
+            },
             "modal": true
         }
     },
+
+    "tutorial": {
+        "builder": true,
+        "no_selection": false,
+        "name": "Tutorial Section",
+        "content": {
+            "heading": "text",
+            "subheading": "text"
+        },
+        "element": {
+            "heading": "text",
+            "subheading": "text",
+            "modal": true
+        }
+    },
+
     "testimonial": {
         "builder": true,
         "name": "Testimonial Section",
         "element": {
-            "location": "text",
+            "name": "text",
             "title": "text",
+            "location": "text",
             "images": {
                 "image": {
-                    "size": "70x70"
+                    "size": "105x105"
                 }
             },
             "modal": true
@@ -162,20 +102,35 @@
         "builder": true,
         "name": "Blog Section",
         "content": {
-            "title": "text",
             "heading": "text",
             "subheading": "text"
         },
         "element": {
             "images": {
                 "blog_image": {
-                    "size": "965x600",
-                    "thumb": "415x260"
+                    "size": "860x400",
+                    "thumb": "430x200"
                 }
             },
             "title": "text",
             "quote": "textarea",
             "description": "textarea-rich",
+            "modal": false
+        }
+    },
+
+    "feature": {
+        "builder": true,
+        "name": "Feature Section",
+        "element": {
+            "heading": "text",
+            "description": "textarea-rich",
+            "button": "text",
+            "images": {
+                "image": {
+                    "size": "510x495"
+                }
+            },
             "modal": false
         }
     },
@@ -208,17 +163,14 @@
         "no_selection": true,
         "name": "Contact Us",
         "content": {
-            "top_heading": "text",
             "heading": "text",
-            "button_text": "text",
             "short_description": "text",
+            "button_text": "text",
             "footer_short_details": "text",
             "email_address": "text",
             "contact_details": "text",
             "contact_number": "text",
             "support_number": "text",
-            "latitude": "text",
-            "longitude": "text",
             "website_footer": "textarea-rich"
         }
     }

@@ -64,14 +64,17 @@ trait FileInfo
             'path' => 'assets/images/gateway/method',
             'size' => '400x400',
         ];
+
         $data['withdrawMethod'] = [
             'path' => 'assets/images/withdraw/method',
             'size' => '400x400',
         ];
+
         $data['language'] = [
             'path' => 'assets/images/language',
             'size' => '50x50',
         ];
+
         $data['blog'] = [
             'path' => 'assets/images/frontend/blog/',
         ];
@@ -88,16 +91,20 @@ trait FileInfo
             'path' => 'assets/images/frontend/banner/',
         ];
 
-        $data['brand'] = [
-            'path' => 'assets/images/frontend/brand/',
+        $data['service'] = [
+            'path' => 'assets/images/frontend/service/',
         ];
 
+        $data['action'] = [
+            'path' => 'assets/images/frontend/action/',
+        ];
+
+        $data['tutorial'] = [
+            'path' => 'assets/images/frontend/tutorial/',
+        ];
+ 
         $data['feature'] = [
             'path' => 'assets/images/frontend/feature/',
-        ];
-
-        $data['use_cases'] = [
-            'path' => 'assets/images/frontend/use_cases/',
         ];
 
         $data['faq'] = [
@@ -110,11 +117,6 @@ trait FileInfo
 
         $data['about'] = [
             'path' => 'assets/images/frontend/about/',
-        ];
-
-        $data['form'] = [
-            'path' => 'assets/images/backend/form/',
-            'size' => '380x255',
         ];
 
         return $data;
