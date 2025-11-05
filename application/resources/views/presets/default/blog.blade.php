@@ -3,7 +3,7 @@
     {{-- ==========================  Blog Section Start  ========================== --}}
     <section class="blog section-bg-2 my-120">
         <div class="container">
-            <div class="row g-4">
+            <div class="row g-4 justify-content-center">
                 @include($activeTemplate . 'components.blog')
                 {{-- pagination --}}
                 @if ($blogs->hasPages())

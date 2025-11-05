@@ -5699,7 +5699,7 @@ input[type="number"] {
   background-color: hsl(var(--base));
 }
 
-.blog__quote p {
+.blog__quote{
   margin-bottom: 0;
   font-size: 18px;
   font-weight: 600;
