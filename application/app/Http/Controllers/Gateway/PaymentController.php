@@ -20,7 +20,7 @@ class PaymentController extends Controller
 
     public function creditPurchase()
     {
-        $pageTitle = 'Buy-Credit';
+        $pageTitle = 'Credit Purchase';
         $user = User::where('id', auth()->id())->first();
         $gatewayCurrency = GatewayCurrency::whereHas('method', function ($gate) {
             $gate->where('status', 1);

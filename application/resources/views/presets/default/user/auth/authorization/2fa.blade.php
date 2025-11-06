@@ -1,69 +1,94 @@
 @extends($activeTemplate . 'layouts.frontend')
 @section('content')
-    <main>
-        <section class="account">
-            <div class="account__inner">
-                <div class="account__left">
-                    <a href="{{ route('home') }}" class="account__logo logo">
-                        <img src="{{ getImage(getFilePath('logoIcon') . '/logo_white.png', '?' . time()) }}"
-                            alt="@lang('logo')">
-                    </a>
-                    <h1 class="account__left-title">@lang('Welcome to FormBuilder')</h1>
-                </div>
-                <div class="account__form-wrap">
+    <div class="auth__area">
+        <div class="auth__main position-relative">
+            <div class="auth__bg bg--img" data-background-image="{{ asset($activeTemplateTrue . 'images/shape/line.png') }}">
+            </div>
+            <div class="auth__thumb">
+                <img class="w--100" src="{{ asset($activeTemplateTrue . 'images/shape/sign-in.png') }}"
+                    alt="@lang('image')">
+            </div>
+            <div class="auth__wrapper">
 
-                    <div class="row">
-                        <div class="col-12">
-                            <div class="account__header">
-                                <h2 class="account__title">@lang('2FA Verification')</h2>
-                                <p class="account__desc">
-                                    @lang('A 6 digit verification code sent to your mobile number') : +{{ showMobileNumber(auth()->user()->mobile) }}
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row gx-3 gy-4">
-                        <div class="verification-area mt-0">
-                            <form action="{{ route('user.go2fa.verify') }}" method="POST" class="submit-form">
-                                @csrf
-                                @include($activeTemplate . 'components.verification_code')
-                                <div class="form-group">
-                                    <button type="submit" class="btn btn--base w-100">@lang('Submit')</button>
-                                </div>
-                            </form>
+                <div class="row">
+                    <div class="col-12">
+                        <div class="account__header">
+                            <h2 class="account__title">@lang('2FA Verification')</h2>
+                            <p class="account__desc">
+                                @lang('A 6 digit verification code sent to your mobile number') : +{{ showMobileNumber(auth()->user()->mobile) }}
+                            </p>
                         </div>
                     </div>
                 </div>
-        </section>
-    </main>
+                <div class="row gx-3 gy-4">
+                    <div class="verification-area ">
+                        <form action="{{ route('user.go2fa.verify') }}" method="POST" class="submit-form">
+                            @csrf
+                            <div class="mt-1">
+                                @include($activeTemplate . 'components.verification_code')
+                            </div>
+                            <div class="form-group">
+                                <button type="submit" class="btn btn--base w-100">@lang('Submit')</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 @endsection
 
 
 @push('style')
     <style>
-        .verification-code input {
-            letter-spacing: 92px !important;
-            text-indent: 19px !important;
+        .auth__area .form-control {
+            padding: 21px !important;
         }
 
-        @media screen and (max-width: 1440px) {
+        @media screen and (max-width: 2560px) {
+            .auth__area .form-control {
+                padding: 6px !important;
+            }
+
             .verification-code input {
-                letter-spacing: 70px !important;
-                text-indent: 6px !important;
+                        letter-spacing: 49px !important;
+        text-indent: 18px !important;
             }
         }
 
-        @media screen and (max-width: 1023px) {
+        @media screen and (max-width: 1440px) {
+            .auth__area .form-control {
+                padding: 10px !important;
+            }
+
             .verification-code input {
-                letter-spacing: 70px !important;
-                text-indent: 6px !important;
+                letter-spacing: 38px !important;
+                text-indent: 10px !important;
+            }
+        }
+
+        @media screen and (max-width: 1025px) {
+            .auth__area .form-control {
+                padding: 8px !important;
+            }
+
+            .verification-code input {
+                letter-spacing: 54px !important;
+                text-indent: 17px !important;
             }
         }
 
         @media screen and (max-width: 991px) {
             .verification-code input {
-                letter-spacing: 70px !important;
+                letter-spacing: 74px !important;
                 text-indent: 6px !important;
+            }
+        }
+
+        @media screen and (max-width: 769px) {
+            .verification-code input {
+                letter-spacing: 73px !important;
+                text-indent: 10px !important;
             }
         }
 
@@ -82,9 +107,13 @@
         }
 
         @media screen and (max-width: 321px) {
+            .auth__area .form-control {
+                padding: 15px !important;
+            }
+
             .verification-code input {
                 letter-spacing: 32px !important;
-                text-indent: 2px !important;
+                text-indent: 0px !important;
             }
         }
 

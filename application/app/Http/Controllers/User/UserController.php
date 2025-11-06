@@ -18,10 +18,8 @@ class UserController extends Controller
     {
         $pageTitle = 'Dashboard';
         $user                  = auth()->user();
-        $totalForms            = FormBuilder::where('user_id', $user->id)->count();
-        $totalSubmissions      = FormBuilderAnswer::where('user_id', $user->id)->count();
         $transactions          = Transaction::where('user_id', $user->id)->latest()->paginate(getPaginate(10));
-        return view('UserTemplate::dashboard', compact('pageTitle', 'transactions', 'totalForms', 'totalSubmissions'));
+        return view('UserTemplate::dashboard', compact('pageTitle', 'transactions'));
     }
 
     public function depositHistory(Request $request)

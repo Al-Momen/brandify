@@ -2,8 +2,9 @@
 @section('content')
     <div class="dashboard__wrapper">
         <div class="row g-4 justify-content-center">
-            <div class="col-xl-12">
-                <div class="profile__wrap card p-4">
+            <div class="col-xl-6 col-lg-8">
+                <div class="card">
+                    <h4>{{__($pageTitle)}}</h4>
                     <form action="{{ route('user.credit.insert') }}" method="post">
                         @csrf
                         <input type="hidden" name="method_code">
@@ -12,9 +13,10 @@
                             <div class="col-sm-12">
                                 <div class="profile__form">
                                     <label class="form-label">@lang('Select Gateway')</label>
-                                    <select class="form--control select-2" name="gateway" required>
+                                    <select class="select2" name="gateway" required>
                                         <option value="">@lang('Select One')</option>
-                                        <option value="balance">@lang('Account Balance') ({{ showAmount(auth()->user()->balance) }})</option>
+                                        <option value="balance">@lang('Account Balance')
+                                            ({{ showAmount(auth()->user()->balance) }})</option>
                                         @foreach ($gatewayCurrency as $data)
                                             <option value="{{ $data->method_code }}" @selected(old('gateway') == $data->method_code)
                                                 data-gateway="{{ $data }}">{{ $data->name }}</option>
@@ -27,7 +29,7 @@
                                 <span class="mt-2">(@lang('Per Credit') {{ $general->per_credit_price }}
                                     {{ $general->cur_text }})</span>
                                 <div class="profile__form">
-                                    <input type="number" name="credit_purchase" class="form--control" value="1"
+                                    <input type="number" name="credit_purchase" class="form-control" value="1"
                                         required="" id="credit" step="1" min="1">
                                 </div>
                             </div>
@@ -36,9 +38,9 @@
                         <div class="col-sm-12">
                             <div class="profile__form">
                                 <label class="form-label">@lang('Amount')</label>
-                                <div class="input--group">
+                                <div class="input-group">
                                     <input type="number" step="any" name="amount"
-                                        class="form--control support-readonly" value="{{ $general->per_credit_price }}"
+                                        class="form-control support-readonly" value="{{ $general->per_credit_price }}"
                                         readonly autocomplete="off" required>
                                     <span class="input-group-text">{{ $general->cur_text }}</span>
                                 </div>
@@ -73,13 +75,12 @@
     <script>
         (function($) {
             "use strict";
-
             $('select[name=gateway]').on('change', function() {
                 if (!$('select[name=gateway]').val() || $('select[name=gateway]').val() == 'balance') {
                     $('.preview-details').addClass('d-none');
                     return false;
                 }
-            
+
                 var resource = $('select[name=gateway] option:selected').data('gateway');
                 var fixed_charge = parseFloat(resource.fixed_charge);
                 var percent_charge = parseFloat(resource.percent_charge);

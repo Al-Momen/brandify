@@ -1,6 +1,5 @@
 <!doctype html>
-<html lang="{{ config('app.locale') }}" itemscope itemtype="http://schema.org/WebPage">
-
+<html lang = "{{ config('app.locale') }}" itemscope itemtype = "http://schema.org/WebPage">
 <head>
     <!-- Required meta tags -->
     <meta charset="utf-8">
@@ -12,64 +11,62 @@
     <link rel="stylesheet" href="{{ asset('assets/common/css/all.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/common/css/line-awesome.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/common/css/select2.min.css') }}">
-    <link rel="stylesheet" href="{{ asset($activeTemplateTrue . 'css/magnific-popup.css') }}">
-    <link rel="stylesheet" href="{{ asset($activeTemplateTrue . 'css/jquery.bxslider.min.css') }}">
+    <link rel="stylesheet" href="{{ asset($activeTemplateTrue . 'css/swiper-bundle.min.css') }}">
     <link rel="stylesheet" href="{{ asset($activeTemplateTrue . 'css/main.css') }}">
-        <link rel="stylesheet" href="{{ asset($activeTemplateTrue . 'css/custom.css') }}">
+    <link rel="stylesheet" href="{{ asset($activeTemplateTrue . 'css/custom.css') }}">
+    <link rel="stylesheet" href="{{ asset($activeTemplateTrue . 'css/custom.css') }}">
     @stack('style-lib')
     @stack('style')
-    <link rel="stylesheet"
-        href="{{ asset($activeTemplateTrue . 'css/color.php') }}?color={{ $general->base_color }}&secondColor={{ $general->secondary_color }}">
+    <link rel="stylesheet" href="{{ asset($activeTemplateTrue . 'css/color.php') }}?color={{ $general->base_color }}&secondColor={{ $general->secondary_color }}">
 </head>
 
 <body>
 
-    <div class="dashboard">
-        @include('Template::components.user.side_bar')
-        <div class="dashboard__wrap">
-            <!--==========================   User-header Start  ==========================-->
-            @include('Template::components.user.top_header')
-            <!--==========================  User-header End  ==========================-->
-            @yield('content')
-          
+    <body>
+        @include('Template::components.loader')
+        <div class = "dashboard">
+            @include('Template::components.user.side_bar')
+            <div class="dashboard__wrap">
+                <!--==========================User-header Start==========================-->
+                @include('Template::components.user.top_header')
+                <!--==========================User-header End==========================-->
+                @yield('content')
+            </div>
         </div>
-    </div>
 
-    @include('Template::components.cookie')
- <script src="{{ asset('assets/common/js/jquery-3.7.1.min.js') }}"></script>
-    <script src="{{ asset('assets/common/js/bootstrap.bundle.min.js') }}"></script>
-    <script src="{{ asset('assets/common/js/select2.min.js') }}"></script>
-    <script src="{{ asset($activeTemplateTrue . 'js/jquery.bxslider.min.js') }}"></script>
-    <script src="{{ asset($activeTemplateTrue . 'js/magnific-popup.min.js') }}"></script>
-    <script src="{{ asset($activeTemplateTrue . 'js/odometer.min.js') }}"></script>
-    <script src="{{ asset($activeTemplateTrue . 'js/scrollreveal.min.js') }}"></script>
-    <script src="{{ asset($activeTemplateTrue . 'js/main.js') }}"></script>
+        @include('Template::components.cookie')
+        <script src="{{ asset('assets/common/js/jquery-3.7.1.min.js') }}"></script>
+        <script src="{{ asset('assets/common/js/bootstrap.bundle.min.js') }}"></script>
+        <script src="{{ asset('assets/common/js/select2.min.js') }}"></script>
+        <script src="{{ asset($activeTemplateTrue . 'js/swiper-bundle.min.js') }}"></script>
+        <script src="{{ asset($activeTemplateTrue . 'js/odometer.min.js') }}"></script>
+        <script src="{{ asset($activeTemplateTrue . 'js/scrollreveal.min.js') }}"></script>
+        <script src="{{ asset($activeTemplateTrue . 'js/main.js') }}"></script>
 
-    @stack('script-lib')
-    @stack('script')
-    @include('includes.notify')
-    @include('includes.plugins')
+        @stack('script-lib')
+        @stack('script')
+        @include('includes.notify')
+        @include('includes.plugins')
 
-    <script>
-        (function($) {
-            "use strict";
-            $(document).on('click', '.lang-change', function() {
-                const lang = $(this).data('lang');
-                window.location.href = "{{ route('home') }}/change/" + lang;
-            });
-
-            $('.policy').on('click', function() {
-                $.get('{{ route('cookie.accept') }}', function(response) {
-                    $('.cookies-card').addClass('d-none');
+        <script>
+            (function($) {
+                "use strict";
+                $(document).on('click', '.lang-change', function() {
+                    const lang = $(this).data('lang');
+                    window.location.href = "{{ route('home') }}/change/" + lang;
                 });
-            });
 
-            setTimeout(function() {
-                $('.cookies-card').removeClass('hide')
-            }, 2000);
+                $('.policy').on('click', function() {
+                    $.get('{{ route('cookie.accept') }}', function(response) {
+                        $('.cookies-card').addClass('d-none');
+                    });
+                });
 
-        })(jQuery);
-    </script>
-</body>
+                setTimeout(function() {
+                    $('.cookies-card').removeClass('hide')
+                }, 2000);
 
+            })(jQuery);
+        </script>
+    </body>
 </html>

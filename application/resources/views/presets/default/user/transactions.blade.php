@@ -2,52 +2,48 @@
 @section('content')
     <div class="dashboard__wrapper">
         <div class="row g-4 justify-content-center">
-            <div class="col-xl-12">
-                <div class="profile__wrap card p-4">
-                    <form action="">
-                        <div class="row gy-3">
-                            <!-- Transaction Number -->
-                            <div class="col-md-3">
-                                <label class="form-label">@lang('Transaction Number')</label>
-                                <input type="text" name="search" value="{{ request()->search }}" class="form--control"
-                                    placeholder="@lang('Search by transactions')">
-                            </div>
-
-                            <!-- Type -->
-                            <div class="col-md-3">
-                                <label class="form-label">@lang('Type')</label>
-                                <select name="type" class="form--control select-2">
-                                    <option value="">@lang('All')</option>
-                                    <option value="+" @selected(request()->type == '+')>@lang('Plus')</option>
-                                    <option value="-" @selected(request()->type == '-')>@lang('Minus')</option>
-                                </select>
-
-                            </div>
-
-                            <!-- Remark -->
-                            <div class="col-md-3">
-                                <label class="form-label">@lang('Remark')</label>
-                                <select class="form--control select-2" name="remark">
-                                    <option value="">@lang('Any')</option>
-                                    @foreach ($remarks as $remark)
-                                        <option value="{{ $remark->remark }}" @selected(request()->remark == $remark->remark)>
-                                            {{ __(keyToTitle($remark->remark)) }}
-                                        </option>
-                                    @endforeach
-                                </select>
-                            </div>
-                            <!-- Filter Button -->
-                            <div class="col-md-3 mt-auto">
-                                <button class="btn btn--base btn--lg custom-filter-btn w-100">
-                                    <i class="fa-solid fa-filter"></i> @lang('Filter')
-                                </button>
-                            </div>
+            <div class="dashboard-table py-4">
+                <form action="">
+                    <div class="row gy-3">
+                        <!-- Transaction Number -->
+                        <div class="col-md-3">
+                            <label class="form-label">@lang('Transaction Number')</label>
+                            <input type="text" name="search" value="{{ request()->search }}" class="form-control"
+                                placeholder="@lang('Search by transactions')">
                         </div>
-                    </form>
-                </div>
+                        <!-- Type -->
+                        <div class="col-md-3">
+                            <label class="form-label">@lang('Type')</label>
+                            <select name="type" class="select2">
+                                <option value="">@lang('All')</option>
+                                <option value="+" @selected(request()->type == '+')>@lang('Plus')</option>
+                                <option value="-" @selected(request()->type == '-')>@lang('Minus')</option>
+                            </select>
+
+                        </div>
+                        <!-- Remark -->
+                        <div class="col-md-3">
+                            <label class="form-label">@lang('Remark')</label>
+                            <select class="select2" name="remark">
+                                <option value="">@lang('Any')</option>
+                                @foreach ($remarks as $remark)
+                                    <option value="{{ $remark->remark }}" @selected(request()->remark == $remark->remark)>
+                                        {{ __(keyToTitle($remark->remark)) }}
+                                    </option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <!-- Filter Button -->
+                        <div class="col-md-3 mt-auto">
+                            <button class="btn btn--base btn--lg custom-filter-btn w-100">
+                                <i class="fa-solid fa-filter"></i> @lang('Filter')
+                            </button>
+                        </div>
+                    </div>
+                </form>
             </div>
-            <div class="dashboard__table">
-                <div class="card">
+            <div class="dashboard-table">
+                <div class="dashboard__table">
                     <h5>@lang('Transactions')</h5>
                     <table class="table table--responsive--md">
                         <thead>
@@ -77,7 +73,7 @@
                                         </span>
                                     </td>
 
-                                     <td class="text-center">
+                                    <td class="text-center">
                                         {{ $trx->post_credit }}
                                     </td>
 
@@ -99,5 +95,4 @@
                 </div>
             </div>
         </div>
-    </div>
-@endsection
+    @endsection

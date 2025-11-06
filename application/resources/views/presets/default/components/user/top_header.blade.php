@@ -6,17 +6,23 @@
         ->count();
 @endphp
 
+<!--==========================  Dashboard-header Section Start  ==========================-->
 <div class="dashboard__header">
     <div class="search__box">
-        <h4>{{ __($pageTitle) }}</h4>
+        <input type="text" class="form-control" placeholder="@lang('Search')">
+        <button type="submit">
+            <i class="fa-solid fa-magnifying-glass"></i>
+        </button>
     </div>
     <div class="dashboard__header__widgets">
-
+        <div class="upload__file">
+            <a class="back-to-home fs-14 fw--500" href="{{ route('home') }}"><i
+                    class="fa-solid fa-arrow-left"></i>@lang('Back to Home')</a>
+        </div>
         <div class="dropdown">
             <button type="button" data-bs-toggle="dropdown" aria-expanded="false">
                 <span class="notification__btn">
-                    <i class="las la-bell"></i>
-
+                    <i class="fa-solid fa-bell"></i>
                     @if ($userNotificationUnreadCount)
                         <div class="blob white notification-dot">
                             <span class="notification__count">
@@ -34,8 +40,7 @@
                     </div>
                     <div class="notification__body">
                         @foreach ($userNotifications ?? [] as $item)
-                            <a 
-                                href="{{ route('user.read.notification', $item->id) }}">
+                            <a href="{{ route('user.read.notification', $item->id) }}">
                                 <p>
                                     {{ __(strLimit($item->title, 30)) }}
                                 </p>
@@ -78,3 +83,4 @@
         <span class="sidebar__open"><i class="fa-solid fa-bars"></i></span>
     </div>
 </div>
+<!--==========================  Dashboard-header Section End  ==========================-->

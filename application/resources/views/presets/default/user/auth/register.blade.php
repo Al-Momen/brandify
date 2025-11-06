@@ -5,92 +5,98 @@
 
 @extends($activeTemplate . 'layouts.frontend')
 @section('content')
-    <!-- sign-up section start -->
-    <main>
-        <section class="account register">
-            <div class="account__inner">
-                <div class="account__left">
-                    <a href="{{ route('home') }}" class="account__logo logo">
-                        <img src="{{ getImage(getFilePath('logoIcon') . '/logo_white.png', '?' . time()) }}"
-                            alt="@lang('logo')">
-                    </a>
-                    <h1 class="account__left-title">@lang('Welcome to FormBuilder')</h1>
+   
+    <!--==========================  Auth Section Start  ==========================-->
+    <div class="auth__area">
+        <div class="auth__main position-relative z--1">
+            <div class="auth__bg bg--img"
+                data-background-image="{{ asset($activeTemplateTrue . 'images/shape/line.png') }}"></div>
+            <div class="auth__thumb bg-img">
+                <img src="{{ asset($activeTemplateTrue . 'images/shape/sign-in.png') }}" alt="@lang('image')">
+            </div>
+            <div class="auth__wrapper sign-up__wrapper">
+                <div class="auth__logo">
+                    <a href="index.html"><img src="{{ getImage(getFilePath('logoIcon') . '/logo.png', '?' . time()) }}"
+                            alt="@lang('logo')"></a>
                 </div>
-                <div class="account__form-wrap">
-                    <form class="account__form" action="{{ route('user.register') }}" method="POST" class="verify-gcaptcha">
-                        @csrf
-                        <div class="row">
-                            <div class="col-12">
-                                <div class="account__header">
-                                    <h6 class="account__subtitle">@lang('Welcome back!')</h6>
-                                    <h2 class="account__title">@lang('Register your account')</h2>
-                                    <p class="account__desc">@lang('Secure Access to Your World: Log in to Experience Seamless and Personalized Services.')</p>
+                <div class="auth__title">
+                    <h3>@lang('Sign up your account')</h3>
+                </div>
+                <form action="{{ route('user.register') }}" method="POST" class="verify-gcaptcha">
+                    @csrf
+                    <div class="auth__form">
+                        <div class="row g-4">
+                            <div class="col-md-6">
+                                <div class="auth__form__single">
+                                    <input id="username" type="text" class="form-control checkUser" name="username"
+                                        value="{{ old('username') }}" id="usernameInput"
+                                        placeholder="@lang('Username')" required>
+                                    <p class="text--danger usernameExist"></p>
                                 </div>
                             </div>
-                        </div>
-                        <div class="row gx-3 gy-3">
-                            <div class="col-xl-6 col-md-6 col-sm-6">
-                                <input type="text" class="form--control checkUser" name="username"
-                                    value="{{ old('username') }}" id="usernameInput" placeholder="@lang('Username')"
-                                    required>
-                                <p class="text--danger usernameExist"></p>
-                            </div>
-                            <div class="col-xl-6 col-md-6 col-sm-6">
-                                <input type="email" class="form--control checkUser" id="emailInput"
-                                    value="{{ old('email') }}" name="email" placeholder="@lang('Email Address')" required>
-                                <p class="text--danger mt-1 emailExist"></p>
-                            </div>
-
-                            <div class="col-xl-6 col-md-6 col-sm-6">
-                                <select id="country" name="country" class="form--control select-2" required>
-                                    @foreach ($countries as $key => $country)
-                                        <option data-mobile_code="{{ $country->dial_code }}" value="{{ $country->country }}"
-                                            data-code="{{ $key }}">
-                                            {{ __($country->country) }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-
-                            <div class="col-xl-6 col-md-6 col-sm-6">
-                                <input type="hidden" name="mobile_code">
-                                <input type="hidden" name="country_code">
-                                <div class="input--group">
-                                    <span class="input-group-text mobile-code"></span>
-                                    <input type="number" name="mobile" id="phoneInput" value=""
-                                        class="form--control checkUser" required id="mobile"
-                                        placeholder="@lang('Phone Number')">
-                                </div>
-                                <p class="text--danger mobileExist"></p>
-                            </div>
-
-                            <div class="col-xl-6 col-md-6 col-sm-6">
-                                <div class="position-relative password__field w-100">
-                                    <input type="password" class="form--control" id="passwordInput"
-                                        placeholder="@lang('Password')" name="password" type="password" required>
-                                    <div class="password-show-hide">
-                                        <i class="fa-solid fa-eye close-eye-icon"></i>
-                                        <i class="fa-solid fa-eye-slash open-eye-icon"></i>
-                                    </div>
-                                    @if ($general->secure_password)
-                                        <div class="input-popup">
-                                            <p class="error lower text--white">@lang('1 small letter minimum')</p>
-                                            <p class="error capital text--white">@lang('1 capital letter minimum')</p>
-                                            <p class="error number text--white">@lang('1 number minimum')</p>
-                                            <p class="error special text--white">@lang('1 special character minimum')</p>
-                                            <p class="error minimum text--white">@lang('6 character password')</p>
-                                        </div>
-                                    @endif
-                                </div>
-                            </div>
-
-                            <div class="col-xl-6 col-md-6 col-sm-6">
-                                <div class="position-relative password__field w-100">
-                                    <input type="password" class="form--control" id="confirmPasswordInput"
-                                        placeholder="Confirm Password" name="password_confirmation" type="password"
+                            <div class="col-md-6">
+                                <div class="auth__form__single">
+                                    <input id="email" type="email" class="form-control checkUser" id="emailInput"
+                                        value="{{ old('email') }}" name="email" placeholder="@lang('Email Address')"
                                         required>
-                                    <div class="password-show-hide">
-                                        <i class="fa-solid fa-eye close-eye-icon"></i>
-                                        <i class="fa-solid fa-eye-slash open-eye-icon"></i>
+                                    <p class="text--danger mt-1 emailExist"></p>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="auth__form__single">
+                                    <select id="country" name="country" class="select2" required>
+                                        @foreach ($countries as $key => $country)
+                                            <option data-mobile_code="{{ $country->dial_code }}"
+                                                value="{{ $country->country }}" data-code="{{ $key }}">
+                                                {{ __($country->country) }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="auth__form__single">
+                                    <input type="hidden" name="mobile_code">
+                                    <input type="hidden" name="country_code">
+                                    <div class="input-group">
+                                        <span class="input-group-text mobile-code"></span>
+                                        <input id="phone" type="text" name="mobile"
+                                            id="phoneInput" value="" class="form-control checkUser" required
+                                            id="mobile" placeholder="@lang('Phone Number')">
+                                        <p class="text--danger mobileExist"></p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="auth__form__single">
+                                    <div class="password__input">
+                                        <input id="password" type="password" class="form-control" id="passwordInput"
+                                            placeholder="@lang('Password')" name="password" type="password" required>
+                                        <div class="password-show-hide">
+                                            <i class="fa-solid fa-eye close-eye-icon"></i>
+                                            <i class="fa-solid fa-eye-slash open-eye-icon"></i>
+                                        </div>
+                                        @if ($general->secure_password)
+                                            <div class="input-popup">
+                                                <p class="error lower text--white">@lang('1 small letter minimum')</p>
+                                                <p class="error capital text--white">@lang('1 capital letter minimum')</p>
+                                                <p class="error number text--white">@lang('1 number minimum')</p>
+                                                <p class="error special text--white">@lang('1 special character minimum')</p>
+                                                <p class="error minimum text--white">@lang('6 character password')</p>
+                                            </div>
+                                        @endif
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="auth__form__single">
+                                    <div class="password__input">
+                                        <input id="confirmPassword" type="password" class="form-control"
+                                            id="confirmPasswordInput" placeholder="Confirm Password"
+                                            name="password_confirmation" type="password" required>
+                                        <div class="password-show-hide">
+                                            <i class="fa-solid fa-eye close-eye-icon"></i>
+                                            <i class="fa-solid fa-eye-slash open-eye-icon"></i>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -98,70 +104,70 @@
                             <div class="col-lg-12 col-md-6 col-sm-6 recap">
                                 <x-captcha></x-captcha>
                             </div>
-
                             @if ($general->agree)
-                                <div class="col-sm-12">
-                                    <div class="form--check">
-                                        <input class="form-check-input" type="checkbox" name="agree"
-                                            @checked(old('agree')) id="checkDefault" required>
-                                        <label class="form-check-label w-auto" for="remember">
-                                            @lang('I agree with')
-                                            @foreach ($policyPages as $policy)
-                                                <a href="{{ route('policy.pages', [slug($policy->data_values->title), $policy->id]) }}"
-                                                    class="btn--underline">{{ __($policy->data_values->title) ?? '' }}</a>
-                                                @if (!$loop->last)
-                                                    ,
-                                                @endif
-                                            @endforeach
-                                        </label>
+                                <div class="col-lg-12">
+                                    <div class="auth__check">
+                                        <div class="form-check">
+                                            <input id="checkDefault" class="form-check-input" type="checkbox"
+                                                name="agree" @checked(old('agree')) id="checkDefault" required>
+                                            <label class="form-check-label" for="checkDefault">
+                                                @lang('I agree with')
+                                                @foreach ($policyPages as $policy)
+                                                    <a href="{{ route('policy.pages', [slug($policy->data_values->title), $policy->id]) }}"
+                                                        class="btn--underline">{{ __($policy->data_values->title) ?? '' }}</a>
+                                                    @if (!$loop->last)
+                                                        ,
+                                                    @endif
+                                                @endforeach
+                                            </label>
+                                        </div>
                                     </div>
                                 </div>
                             @endif
-                            <div class="col-sm-12">
-                                <button type="submit" class="btn btn--base w-100" id="recaptcha">@lang('Sign Up')</button>
+                            <div class="col-lg-12">
+                                <div class="auth__form__single">
+                                    <button type="submit" class="btn btn--base w-100"
+                                        id="recaptcha">@lang('SIGN UP')</button>
+                                </div>
                             </div>
+                            @if ($credentials->google->status == 1 || $credentials->facebook->status == 1)
+                                <div class="col-lg-12">
+                                    <div class="auth__or">
+                                        <p>@lang('OR')</p>
+                                    </div>
+                                </div>
 
-                             @if ($credentials->google->status == 1 || $credentials->facebook->status == 1)
-                                <div class="col-12">
-                                    <ul class="social-list">
+                                <div class="col-lg-12">
+                                    <ul class="social__icon justify-content-center">
                                         @if ($credentials->google->status == 1)
-                                            <li class="social-list__item">
-                                                <a href="{{ route('user.social.login', 'google') }}"
-                                                    class="social-list__link flex-center">
-                                                    <div class="icon">
-                                                        <i class="fa-brands fa-google"></i>
-                                                    </div>
+                                            <li>
+                                                <a href="{{ route('user.social.login', 'google') }}">
+                                                    <i class="fa-brands fa-google"></i>
                                                 </a>
                                             </li>
                                         @endif
                                         @if ($credentials->facebook->status == 1)
-                                            <li class="social-list__item">
-                                                <a href="{{ route('user.social.login', 'facebook') }}"
-                                                    class="social-list__link flex-center">
-                                                    <div class="icon">
-                                                        <i class="fa-brands fa-facebook-f"></i>
-                                                    </div>
+                                            <li>
+                                                <a href="{{ route('user.social.login', 'facebook') }}">
+                                                    <i class="fa-brands fa-facebook-f"></i>
                                                 </a>
                                             </li>
                                         @endif
                                     </ul>
                                 </div>
                             @endif
-                            
-                            <div class="col-sm-12">
-                                <div class="have-account text-center">
-                                    <p class="have-account__text">@lang('You have any account?') <a href="{{ route('user.login') }}"
-                                            class="have-account__link text--base fw-semibold">@lang('Sign In')</a></p>
+                            <div class="col-lg-12">
+                                <div class="auth__already">
+                                    <p>@lang('You have any account?') <a href="{{ route('user.login') }}">@lang('Sign In')</a></p>
                                 </div>
                             </div>
                         </div>
-                    </form>
-                </div>
+                    </div>
+                </form>
             </div>
-        </section>
-    </main>
-
-    <!-- sign-up section start -->
+        </div>
+    </div>
+    <!--==========================  Auth Section End  ==========================-->
 
 
     {{-- =======-** Sign Up End **-======= --}}

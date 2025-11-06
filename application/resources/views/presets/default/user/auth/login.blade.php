@@ -21,7 +21,7 @@
                 <div class="auth__title">
                     <h3 class="mb-0">@lang('Sign in your account')</h3>
                 </div>
-
+                
                 <form method="POST" action="{{ route('user.login') }}" class="verify-gcaptcha">
                     @csrf
                     <div class="auth__form">
@@ -62,7 +62,6 @@
                                         <input class="form-check-input" type="checkbox" value="" name="remember"
                                                 id="remember" {{ old('remember') ? 'checked' : '' }}>
                                         <label class="form-check-label" for="rememberCheck">
-                                         
                                             @lang('Remember Me')
                                         </label>
                                     </div>

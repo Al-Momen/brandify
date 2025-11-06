@@ -5699,7 +5699,7 @@ input[type="number"] {
   background-color: hsl(var(--base));
 }
 
-.blog__quote{
+.blog__quote {
   margin-bottom: 0;
   font-size: 18px;
   font-weight: 600;
@@ -6421,8 +6421,8 @@ input[type="number"] {
 
 .notification__count {
   position: absolute;
-  right: -6px;
-  top: -10px;
+  right: -2px;
+  top: -2px;
   z-index: 2;
   background-color: hsl(var(--base));
   line-height: 1;
@@ -7467,3 +7467,141 @@ input[type="number"] {
 }
 
 /* ======================  Policy Section End  ======================*/
+
+/* start notification */
+.blob {
+  border-radius: 50%;
+  margin: 3px;
+  height: 20px;
+  width: 20px;
+  position: relative;
+  right: -8px;
+}
+
+.blob.white {
+  background: hsl(var(--base));
+  box-shadow: 0 0 0 0 rgb(255 255 255);
+  animation: pulse-white 1.5s infinite;
+}
+
+@keyframes pulse-white {
+  0% {
+    transform: scale(0.95);
+    box-shadow: 0 0 0 0 hsl(var(--base) / 0.7);
+  }
+
+  70% {
+    transform: scale(1);
+    box-shadow: 0 0 0 10px hsl(var(--base) / 0.05);
+  }
+
+  100% {
+    transform: scale(0.95);
+    box-shadow: 0 0 0 0 hsl(var(--base) / 0.01);
+  }
+}
+
+@keyframes pulse-red {
+  0% {
+    transform: scale(0.95);
+    box-shadow: 0 0 0 0 rgba(255, 95, 95, 0.7);
+  }
+
+  70% {
+    transform: scale(1);
+    box-shadow: 0 0 0 10px rgba(255, 95, 95, 0);
+  }
+
+  100% {
+    transform: scale(0.95);
+    box-shadow: 0 0 0 0 rgba(255, 95, 95, 0);
+  }
+}
+
+.pointer-dot {
+  position: absolute;
+  left: 0;
+  top: 0;
+}
+
+.notification-dot {
+  position: absolute;
+  right: -12px;
+  top: -3px;
+}
+/* end notification */
+
+.table__topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 20px;
+  margin-bottom: 10px;
+}
+
+@media screen and (max-width: 767px) {
+  .table__topbar {
+    flex-direction: column;
+  }
+}
+
+.filter__btn {
+  white-space: nowrap;
+}
+
+.table__topbar>h5 {
+  margin-bottom: 0;
+}
+
+.table__topbar__right {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+@media screen and (max-width: 767px) {
+  .table__topbar__right {
+    width: 100%;
+  }
+
+  .table__topbar__right .search__box {
+    width: 100%;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .table__topbar__right .filter__main {
+    right: -30px !important;
+  }
+}
+
+@media screen and (max-width: 1199px) {
+  .table__topbar__right .btn.filter__btn {
+    font-size: 14px;
+    padding: 18px 20px;
+  }
+}
+
+.table__topbar__right .search__box .form-control {
+  padding: 15px 16px;
+  padding-right: 44px;
+}
+
+@media screen and (max-width: 767px) {
+  .table__topbar__right .search__box .form-control {
+    width: 100%;
+  }
+}
+
+.btn.open__ticket {
+  font-size: 14px;
+  padding: 18px 20px;
+  white-space: nowrap;
+}
+
+.table__topbar__right.ticket__pg {
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
+

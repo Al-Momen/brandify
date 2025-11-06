@@ -4,65 +4,80 @@
 @extends($activeTemplate . 'layouts.master')
 @section('content')
     <div class="dashboard__wrapper">
-        <div class="row gy-4">
-            <div class="col-md-6 col-lg-4 col-xl-3">
-                <a href="{{ route('user.deposit') }}" class="dashboard-widgets">
-                    <div class="dashboard-widgets__content">
-                        <p class="dashboard-widgets__title">@lang('Current Balance')</p>
-                        <h3 class="dashboard-widgets__amount">{{ $general->cur_sym . showAmount($user->balance) }}</h3>
+        <div class="row g-4">
+            <div class="col-xxl-3 col-sm-6">
+                <div class="d-block w-100">
+                    <div class="dashboard__card card">
+                        <div class="dashboard__card__item">
+                            <span class="dashboard__card__icon"><i class="fas fa-coins"></i></span>
+                            <p>Balance</p>
+                        </div>
+                        <div class="d-flex justify-content-between">
+                            <h3 class="dashboard__card__price">$140.00</h3>
+                            <a class="dashboard__card__btn-text" href="#">View All<span><i
+                                        class="fa-solid fa-arrow-right"></i></span></a>
+                        </div>
                     </div>
-                    <div class="dashboard-widgets__shape">
-                        <img src="{{ getImage(getFilePath('shape') . 'dashboard-shape.png') }}" alt="@lang('dashboard-shape')">
-                    </div>
-                </a>
+                </div>
             </div>
-            <div class="col-md-6 col-lg-4 col-xl-3">
-                <a href="{{ route('user.credit.purchase') }}" class="dashboard-widgets">
-                    <div class="dashboard-widgets__content">
-                        <p class="dashboard-widgets__title">@lang('Total Credit')</p>
-                        <h3 class="dashboard-widgets__amount">{{ $user->credit }}</h3>
+            <div class="col-xxl-3 col-sm-6">
+                <div class="d-block w-100">
+                    <div class="dashboard__card card">
+                        <div class="dashboard__card__item">
+                            <span class="dashboard__card__icon"><i class="fas fa-coins"></i></span>
+                            <p>Total Logo</p>
+                        </div>
+                        <div class="d-flex justify-content-between">
+                            <h3 class="dashboard__card__price">$140.00</h3>
+                            <a class="dashboard__card__btn-text" href="#">View All<span><i
+                                        class="fa-solid fa-arrow-right"></i></span></a>
+                        </div>
                     </div>
-                    <div class="dashboard-widgets__shape">
-                        <img src="{{ getImage(getFilePath('shape') . 'dashboard-shape.png') }}" alt="@lang('dashboard-shape')">
-                    </div>
-                </a>
+                </div>
             </div>
-            <div class="col-md-6 col-lg-4 col-xl-3">
-                <a href="{{ route('user.form.index') }}" class="dashboard-widgets">
-                    <div class="dashboard-widgets__content">
-                        <p class="dashboard-widgets__title">@lang('Total Forms')</p>
-                        <h3 class="dashboard-widgets__amount">{{ $totalForms }}</h3>
+            <div class="col-xxl-3 col-sm-6">
+                <div class="d-block w-100">
+                    <div class="dashboard__card card">
+                        <div class="dashboard__card__item">
+                            <span class="dashboard__card__icon"><i class="fas fa-coins"></i></span>
+                            <p>Total Brand Kit</p>
+                        </div>
+                        <div class="d-flex justify-content-between">
+                            <h3 class="dashboard__card__price">$140.00</h3>
+                            <a class="dashboard__card__btn-text" href="#">View All<span><i
+                                        class="fa-solid fa-arrow-right"></i></span></a>
+                        </div>
                     </div>
-                    <div class="dashboard-widgets__shape">
-                        <img src="{{ getImage(getFilePath('shape') . 'dashboard-shape.png') }}" alt="@lang('dashboard-shape')">
-                    </div>
-                </a>
+                </div>
             </div>
-            <div class="col-md-6 col-lg-4 col-xl-3">
-                <a href="{{ route('user.form.submission') }}" class="dashboard-widgets">
-                    <div class="dashboard-widgets__content">
-                        <p class="dashboard-widgets__title">@lang('Total Submissions')</p>
-                        <h3 class="dashboard-widgets__amount">{{ $totalSubmissions }}</h3>
+            <div class="col-xxl-3 col-sm-6">
+                <div class="d-block w-100">
+                    <div class="dashboard__card card">
+                        <div class="dashboard__card__item">
+                            <span class="dashboard__card__icon"><i class="fas fa-coins"></i></span>
+                            <p> Subscription</p>
+                        </div>
+                        <div class="d-flex justify-content-between">
+                            <h3 class="dashboard__card__price">$140.00</h3>
+                            <a class="dashboard__card__btn-text" href="#">View All<span><i
+                                        class="fa-solid fa-arrow-right"></i></span></a>
+                        </div>
                     </div>
-                    <div class="dashboard-widgets__shape">
-                        <img src="{{ getImage(getFilePath('shape') . 'dashboard-shape.png') }}" alt="@lang('dashboard-shape')">
-                    </div>
-                </a>
+                </div>
             </div>
         </div>
         <div class="row mt-4">
             <div class="col-lg-12">
-                <div class="card">
+                <div class="dashboard-table">
                     <div class="table__topbar">
                         <h5>@lang('Latest Transactions')</h5>
                         <div class="table__topbar__right">
                             <div class="search__box">
-                                <input type="text" class="form--control" placeholder="Search">
+                                <input type="text" class="form-control" placeholder="Search">
                                 <button type="submit">
                                     <i class="fa-solid fa-magnifying-glass"></i>
                                 </button>
                             </div>
-                           
                         </div>
                     </div>
                     <div class="dashboard__table">
