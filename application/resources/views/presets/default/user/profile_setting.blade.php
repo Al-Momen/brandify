@@ -46,19 +46,19 @@
                     </div>
                 </div>
                 <div class="col-xl-7">
-                    <div class="profile__wrap card p-4">
+                    <div class="card p-4">
                         <div class="row g-4">
                             <div class="col-sm-6">
                                 <div class="profile__form">
                                     <label class="form-label" for="firstName">@lang('First Name')</label>
-                                    <input class="form--control" type="text" id="firstName"
+                                    <input class="form-control" type="text" id="firstName"
                                         placeholder="@lang('First Name')" name="firstname" value="{{ $user->firstname }}">
                                 </div>
                             </div>
                             <div class="col-sm-6">
                                 <div class="profile__form">
                                     <label class="form-label">@lang('Last Name')</label>
-                                    <input class="form--control" type="text" id="lastName"
+                                    <input class="form-control" type="text" id="lastName"
                                         placeholder="@lang('Last Name')" name="lastname" value="{{ $user->lastname }}">
                                 </div>
                             </div>
@@ -80,10 +80,10 @@
                                     <input type="hidden" name="mobile_code">
                                     <input type="hidden" name="country_code">
                                     <label class="form-label">@lang('Phone')</label>
-                                    <div class="input--group">
+                                    <div class="input-group">
                                         <span class="input-group-text mobile-code"></span>
                                         <input type="number" name="mobile" id="mobile"
-                                            class="form--control checkUser" value="{{ $user->mobile }}" required id="mobile"
+                                            class="form-control checkUser" value="{{ $user->mobile }}" required id="mobile"
                                             placeholder="@lang('Phone Number')">
                                     </div>
                                 </div>
@@ -91,7 +91,7 @@
                             <div class="col-sm-6">
                                 <div class="profile__form">
                                     <label class="form-label" for="address">@lang('Address')</label>
-                                    <input class="form--control" type="text" id="address"
+                                    <input class="form-control" type="text" id="address"
                                         placeholder="@lang('Address')" name="address"
                                         value="{{ $user->address?->address }}">
                                 </div>
@@ -99,7 +99,7 @@
                             <div class="col-sm-6">
                                 <div class="profile__form">
                                     <label class="form-label">@lang('State')</label>
-                                    <input class="form--control" type="text" id="state"
+                                    <input class="form-control" type="text" id="state"
                                         placeholder="@lang('State')" name="state"
                                         value="{{ $user->address?->state }}">
                                 </div>
@@ -107,7 +107,7 @@
                             <div class="col-sm-6">
                                 <div class="profile__form">
                                     <label class="form-label" for="zipCode">@lang('Zip Code')</label>
-                                    <input class="form--control" type="text" id="zipCode"
+                                    <input class="form-control" type="text" id="zipCode"
                                         placeholder="@lang('Zip Code')" name="zip"
                                         value="{{ $user->address?->zip }}">
                                 </div>
@@ -115,7 +115,7 @@
                             <div class="col-sm-6">
                                 <div class="profile__form">
                                     <label class="form-label" id="city" for="city">@lang('City')</label>
-                                    <input class="form--control" type="text" placeholder="@lang('City')"
+                                    <input class="form-control" type="text" placeholder="@lang('City')"
                                         name="city" value="{{ $user->address?->city }}">
                                 </div>
                             </div>

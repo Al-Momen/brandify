@@ -7,11 +7,11 @@
             @endguest
             <div class="dashboard__wrapper">
                 <div class="row g-4 justify-content-center">
-                    <div class="col-xl-12">
-                        <div class="profile__wrap card p-4">
-                            <div class="row g-4">
+                    <div class="col-lg-12">
+                        <div class="dashboard-table">
+                            <div class="dashboard__table">
                                 <div class="col-lg-12 col-md-12">
-                                    <div class="ticket-header d-flex  justify-content-between mb-3 flex-nowrap">
+                                    <div class="ticket-header d-flex justify-content-between mb-3 flex-nowrap">
                                         <h5 class="text--black ticket-view mb-0 me-2">
                                             @php echo $myTicket->statusBadge; @endphp
                                             [@lang('Ticket')#{{ $myTicket->ticket }}] {{ $myTicket->subject }}
@@ -35,7 +35,7 @@
                                             <div class="row justify-content-between">
                                                 <div class="col-md-12">
                                                     <div class="form-group">
-                                                        <textarea name="message" class="form--control" placeholder="@lang('Message')" rows="4"></textarea>
+                                                        <textarea name="message" class="form-control" placeholder="@lang('Message')" rows="4"></textarea>
                                                     </div>
                                                 </div>
                                             </div>
@@ -50,7 +50,7 @@
                                                 <label class="form-label">@lang('Attachments'):</label> <small
                                                     class="text-danger">@lang('Max 5 files can be uploaded'). @lang('Maximum upload size is')
                                                     {{ ini_get('upload_max_filesize') }}</small>
-                                                <input type="file" name="attachments[]" class="form--control">
+                                                <input type="file" name="attachments[]" class="form-control">
                                                 <div id="fileUploadsContainer"></div>
                                                 <p class="my-2 ticket-attachments-message">
                                                     @lang('Allowed File Extensions'): .@lang('jpg'), .@lang('jpeg'),
@@ -120,7 +120,8 @@
                     </div>
                 </div>
             </div>
-            @guest
+        </div>
+        @guest
             </div>
         </section>
     @endguest
@@ -145,8 +146,8 @@
                 }
                 fileAdded++;
                 $("#fileUploadsContainer").append(`
-                    <div class="input--group my-3">
-                        <input type="file" name="attachments[]" class="form--control form--control" required />
+                    <div class="input-group my-3">
+                        <input type="file" name="attachments[]" class="form-control" required>
                         <button class="input-group-text btn-outline--danger remove-btn"><i class="fa-solid fa-xmark"></i></button>
                     </div>
                 `)

@@ -3,15 +3,15 @@
     <div class="dashboard__wrapper">
         <div class="row g-4 justify-content-center">
             <div class="col-xl-8">
-                <div class="profile__wrap card p-4">
+                <div class="card p-4">
                     <form action="" method="post">
                         @csrf
                         <div class="row g-4">
                             <div class="col-sm-12">
                                 <div class="profile__form">
                                     <label class="form-label">@lang('Current Password')</label>
-                                    <div class="position-relative password__field">
-                                        <input type="password" class="form--control" id="currentPassword"
+                                    <div class="position-relative password__input">
+                                        <input type="password" class="form-control" id="currentPassword"
                                             placeholder="@lang('Current Password')" name="current_password" type="password"
                                             required>
                                         <div class="password-show-hide">
@@ -24,8 +24,8 @@
                             <div class="col-sm-12">
                                 <div class="profile__form">
                                     <label class="form-label">@lang('New Password')</label>
-                                    <div class="position-relative password__field">
-                                        <input class="form--control" type="password" id="newPassword"
+                                    <div class="position-relative password__input">
+                                        <input class="form-control" type="password" id="newPassword"
                                             placeholder="@lang('Password')" name="password" type="password" required>
                                         <div class="password-show-hide">
                                             <i class="fa-solid fa-eye close-eye-icon"></i>
@@ -46,8 +46,8 @@
                             <div class="col-sm-12">
                                 <div class="profile__form">
                                     <label class="form-label">@lang('Confirm Password')</label>
-                                    <div class="position-relative password__field">
-                                        <input class="form--control" type="password" id="confirmPassword"
+                                    <div class="position-relative password__input">
+                                        <input class="form-control" type="password" id="confirmPassword"
                                             placeholder="@lang('Confirm Password')" name="password_confirmation" type="password"
                                             required>
                                         <div class="password-show-hide">

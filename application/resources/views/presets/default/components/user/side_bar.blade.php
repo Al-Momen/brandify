@@ -84,14 +84,14 @@
                 <a href="#payments"
                     class="{{ Route::is('user.credit.purchase') || Route::is('user.deposit') || Route::is('user.deposit.history') ? 'active' : 'collapsed' }}"
                     data-bs-toggle="collapse" role="button"
-                    aria-expanded="{{ Route::is('user.credit.purchase') || Route::is('user.deposit') || Route::is('user.deposit.history') ? 'true' : 'false' }}"
+                    aria-expanded="{{ Route::is('user.credit.purchase')|| Route::is('user.deposit') || Route::is('user.deposit.history') ? 'true' : 'false' }}"
                     aria-controls="payments">
                     <span class="link__icon">
                         <i class="fa-solid fa-money-bills"></i>
                     </span>
                     @lang('Payments')
                     <span class="dropdown__arrow"><i class="fa-solid fa-chevron-right"></i></span></a>
-                <div class="collapse {{ Route::is('user.credit.purchase') || Route::is('user.deposit') || Route::is('user.deposit.history') ? 'show' : '' }}"
+                <div class="collapse {{ Route::is('user.credit.purchase') || Route::is('user.deposit.history') ? 'show' : '' }}"
                     id="payments">
                     <div class="sidebar__dropdown">
                         <ul>
@@ -104,14 +104,17 @@
                                     @lang('Credit Purchase')
                                 </a>
                             </li>
-                            <li> <a href="{{ route('user.deposit') }}"
+
+                            <li>
+                                <a href="{{ route('user.deposit') }}"
                                     class="{{ Route::is('user.deposit') ? 'active' : '' }}">
                                     <span class="link__icon">
-                                        <i class="fa-solid fa-money-bill-transfer"></i>
+                                        <i class="fa-solid fa-coins"></i>
                                     </span>
                                     @lang('Deposit')
                                 </a>
                             </li>
+
                             <li>
                                 <a href="{{ route('user.deposit.history') }}"
                                     class="{{ Route::is('user.deposit.history') ? 'active' : '' }}">

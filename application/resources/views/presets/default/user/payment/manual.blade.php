@@ -4,7 +4,7 @@
         <div class="row g-4 justify-content-center">
             <div class="col-xl-8 col-lg-8 col-md-12 col-md-12">
                 <div class="profile__wrap card p-4">
-                     <h3 class="mb-3 text-center">@lang('Payment Via') {{ __($data->gateway->name) }}</h3>
+                    <h3 class="mb-3 text-center">@lang('Payment Via') {{ __($data->gateway->name) }}</h3>
                     <form action="{{ route('user.deposit.manual.update') }}" method="POST" enctype="multipart/form-data">
                         @csrf
                         <div class="row">
@@ -23,13 +23,7 @@
 
                             <div class="col-md-12">
                                 <div class="form-group">
-                                    @if ($data->is_credit_purchase)
-                                        <button type="submit"
-                                            class="btn btn--base btn--lg w-100">@lang('Credit Purchase')</button>
-                                    @else
-                                        <button type="submit"
-                                            class="btn btn--base btn--lg w-100">@lang('Payment Now')</button>
-                                    @endif
+                                    <button type="submit" class="btn btn--base btn--lg w-100">@lang('Credit Purchase')</button>
                                 </div>
                             </div>
                         </div>

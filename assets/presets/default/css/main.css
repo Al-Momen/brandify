@@ -2450,7 +2450,7 @@ label.required:after {
   transition: 0.2s linear;
   line-height: 25px;
   position: relative;
-  margin-left: 15px;
+  margin-left: 8px;
   color: hsl(var(--white)) !important;
 }
 
@@ -4383,7 +4383,7 @@ input[type="number"] {
   border: 1px solid hsl(var(--black) / 0.1);
   border-radius: 8px;
   height: auto;
-  padding: 14px 30px 14px 14px;
+  padding: 17px 30px 17px 17px;
 }
 
 .select2-container .select2-selection--single .select2-selection__rendered {
@@ -6793,14 +6793,9 @@ input[type="number"] {
   min-height: 100vh;
 }
 
-.dashboard .form-control {
-  padding: 17px;
-  border-color: hsl(var(--black) / 0.12);
-}
-
 .dashboard .select2-container--default .select2-selection--single {
   border-color: hsl(var(--black) / 0.12);
-  padding: 17px 30px 17px 14px;
+  padding: 21px 30px 21px 21px;
 }
 
 .dashboard
@@ -6808,10 +6803,6 @@ input[type="number"] {
   .select2-selection--single
   .select2-selection__rendered {
   font-size: 16px;
-}
-
-.dashboard .form-control[type="file"] {
-  padding: 15px 10px;
 }
 
 .dashboard .input-group {
@@ -6886,10 +6877,6 @@ input[type="number"] {
   background-color: hsl(var(--white));
   padding: 8px;
   border-radius: 12px;
-}
-
-.dashboard .form-control {
-  padding: 16px 46px 16px 16px;
 }
 
 .back-to-home {
@@ -7604,4 +7591,23 @@ input[type="number"] {
   flex-wrap: wrap;
   justify-content: flex-end;
 }
+
+
+.ticket__single {
+  background-color: hsl(var(--base) / 0.06);
+  padding: 24px;
+  border-radius: 12px;
+  border: 1px solid hsl(var(--base) / 0.2);
+}
+
+.ticket__single.user__ticket {
+  background-color: hsl(var(--black) / 0.06);
+}
+
+.ticket__single p span {
+  font-weight: 600;
+  color: hsl(var(--base));
+}
+
+
 

@@ -12,7 +12,7 @@
                             <div class="col-sm-12">
                                 <div class="profile__form">
                                     <label class="form-label">@lang('Select Gateway')</label>
-                                    <select class="form--control" name="gateway" required>
+                                    <select class="select2" name="gateway" required>
                                         <option value="">@lang('Select One')</option>
                                         @foreach ($gatewayCurrency as $data)
                                             <option value="{{ $data->method_code }}" @selected(old('gateway') == $data->method_code)
@@ -26,8 +26,8 @@
                                 <div class="profile__form">
                                     <label class="form-label">@lang('Amount')</label>
                                     <div class="form-group mb-0">
-                                        <div class="input--group">
-                                            <input type="number" step="any" name="amount" class="form--control"
+                                        <div class="input-group">
+                                            <input type="number" step="any" name="amount" class="form-control"
                                                 value="{{ old('amount') }}" autocomplete="off" required>
                                             <span class="input-group-text">{{ $general->cur_text }}</span>
                                         </div>

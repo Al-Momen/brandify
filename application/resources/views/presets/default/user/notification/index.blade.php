@@ -10,7 +10,7 @@
                             <div class="col-md-3 col-sm-6 mb-2 mb-md-0">
                                 <form action="">
                                     <div class="search__box">
-                                        <input type="text" class="form--control" name="search"
+                                        <input type="text" class="form-control" name="search"
                                             value="{{ request()->search }}" placeholder="@lang('Search Title')">
                                         <button type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
                                     </div>

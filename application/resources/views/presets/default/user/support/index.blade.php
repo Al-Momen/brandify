@@ -2,15 +2,21 @@
 @section('content')
     <div class="dashboard__wrapper">
         <div class="row g-4 justify-content-center">
-            <div class="col-xl-12">
-                <div class="profile__wrap card p-4">
+            <div class="col-lg-12">
+                <div class="dashboard-table">
                     <div class="dashboard__table">
-                        <div class="d-flex justify-content-between align-items-center flex-wrap mb-3">
+                        <div class="table__topbar">
                             <h5 class="mb-0">@lang('Support Ticket')</h5>
-                            <div class="search__box">
-                                <a href="{{ route('ticket.open') }}" class="btn btn--md btn--base w-100">
-                                    <i class="fa fa-plus"></i> @lang('New Ticket')
-                                </a>
+                            <div class="table__topbar__right">
+                                <div class="search__box">
+                                    <form action="">
+                                        <div class="search__box">
+                                            <a href="{{ route('ticket.open') }}" class="btn btn--md btn--base w-100">
+                                                <i class="fa fa-plus"></i> @lang('New Ticket')
+                                            </a>
+                                        </div>
+                                    </form>
+                                </div>
                             </div>
                         </div>
                         <table class="table table--responsive--md">

@@ -13,11 +13,6 @@ class Deposit extends Model
         'detail' => 'object'
     ];
 
-    public function subscription()
-    {
-        return $this->belongsTo(Subscription::class)->orderBy('id', 'desc');
-    }
-
     public function user()
     {
         return $this->belongsTo(User::class);

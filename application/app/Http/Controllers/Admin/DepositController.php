@@ -75,11 +75,10 @@ class DepositController extends Controller
 
     public function approve($id)
     {
-        $deposit = Deposit::with('survey')->where('id', $id)->where('status', Status::PAYMENT_PENDING)->firstOrFail();
+        $deposit = Deposit::where('id', $id)->where('status', Status::PAYMENT_PENDING)->firstOrFail();
 
         PaymentController::userDataUpdate($deposit, true);
-
-        $type = $deposit->survey_id ? 'Survey Payment' : ($deposit->is_credit_purchase ? 'Credit Payment' : 'Deposit Payment');
+        $type = $deposit->is_credit_purchase ? 'Credit Payment' : 'Deposit Payment';
         $notify[] = ['success', "{$type} request approved successfully"];
 
         return to_route('admin.deposit.log')->withNotify($notify);
@@ -91,13 +90,13 @@ class DepositController extends Controller
             'id' => 'required|integer',
             'message' => 'required|string|max:255'
         ]);
-        $deposit = Deposit::with('survey')->where('id', $request->id)->where('status', Status::PAYMENT_PENDING)->firstOrFail();
+        $deposit = Deposit::where('id', $request->id)->where('status', Status::PAYMENT_PENDING)->firstOrFail();
 
         $deposit->admin_feedback = $request->message;
         $deposit->status = Status::PAYMENT_REJECT;
         $deposit->save();
 
-        $type = $deposit->survey_id ? 'Survey Payment' : ($deposit->is_credit_purchase ? 'Credit Payment' : 'Deposit Payment');
+        $type = $deposit->is_credit_purchase ? 'Credit Payment' : 'Deposit Payment';
 
         $notifyData = [
             'method_name'       => $deposit->gatewayCurrency()->name,
@@ -113,11 +112,6 @@ class DepositController extends Controller
         if ($deposit->is_credit_purchase) {
             $notifyData['number_of_credit'] = $deposit->number_of_credit;
             notify($deposit->user, 'CREDIT_PAYMENT_REJECT', $notifyData);
-        } elseif ($deposit->survey_id) {
-            $deposit->survey->status = Status::SURVEY_REJECTED;
-            $deposit->survey->save();
-            $notifyData['trx'] = $deposit->trx;
-            notify($deposit->user, 'SURVEY_PAYMENT_REJECT', $notifyData);
         } else {
             $notifyData['trx'] = $deposit->trx;
             notify($deposit->user, 'DEPOSIT_REJECT', $notifyData);
