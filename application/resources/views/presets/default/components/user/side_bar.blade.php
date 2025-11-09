@@ -24,7 +24,6 @@
                 </a>
             </li>
 
-
             <li>
                 <a href="#my-logos"
                     class="{{ Route::is('user.form.index') ||

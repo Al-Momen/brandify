@@ -5452,7 +5452,7 @@ input[type="number"] {
 /* ======================  Blog Details Section Start  ======================*/
 .search__box {
   position: relative;
-  z-index: 1;
+  z-index: 2;
 }
 
 .search__box button {
@@ -7537,7 +7537,7 @@ input[type="number"] {
   white-space: nowrap;
 }
 
-.table__topbar>h5 {
+.table__topbar > h5 {
   margin-bottom: 0;
 }
 
@@ -7592,7 +7592,6 @@ input[type="number"] {
   justify-content: flex-end;
 }
 
-
 .ticket__single {
   background-color: hsl(var(--base) / 0.06);
   padding: 24px;
@@ -7609,5 +7608,48 @@ input[type="number"] {
   color: hsl(var(--base));
 }
 
+/* -----------Start ancore tag search-------------- */
 
+.search__box {
+  position: relative;
+}
 
+#searchResults {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  background: #fff;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  max-height: 220px;
+  overflow-y: auto;
+  display: none;
+  z-index: 9999;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+#searchResults a {
+  display: block;
+  padding: 8px 12px;
+  text-decoration: none;
+  color: #333;
+  border-bottom: 1px solid #f3f3f3;
+  transition: all 0.2s ease;
+}
+
+#searchResults a:hover {
+  background: #f8f9fa;
+}
+
+#searchResults div.no-result {
+  padding: 8px 12px;
+  color: #999;
+  font-style: italic;
+}
+
+#searchResults span.highlight {
+  color: hsl(var(--base));
+  font-weight: bold;
+}
+/* -----------End ancore tag search-------------- */

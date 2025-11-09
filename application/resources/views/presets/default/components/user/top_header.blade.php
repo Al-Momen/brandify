@@ -9,10 +9,12 @@
 <!--==========================  Dashboard-header Section Start  ==========================-->
 <div class="dashboard__header">
     <div class="search__box">
-        <input type="text" class="form-control" placeholder="@lang('Search')">
+        <input type="text" id="sidebarSearch" class="form-control" placeholder="@lang('Search')">
         <button type="submit">
             <i class="fa-solid fa-magnifying-glass"></i>
         </button>
+        <!-- Search result list -->
+        <div id="searchResults"></div>
     </div>
     <div class="dashboard__header__widgets">
         <div class="upload__file">
@@ -84,3 +86,63 @@
     </div>
 </div>
 <!--==========================  Dashboard-header Section End  ==========================-->
+
+@push('script')
+    <script>
+        $(document).ready(function() {
+            const $searchInput = $('#sidebarSearch');
+            const $resultsBox = $('#searchResults');
+
+            // সব sidebar link collect করা
+            const allLinks = [];
+            $('.dashboard__menu ul li a').each(function() {
+                const text = $(this).text().trim();
+                const href = $(this).attr('href');
+                if (href && href !== '#') {
+                    allLinks.push({
+                        text,
+                        href
+                    });
+                }
+            });
+
+            // typing event
+            $searchInput.on('keyup', function() {
+                const searchText = $(this).val().toLowerCase().trim();
+                $resultsBox.empty();
+
+                if (searchText.length === 0) {
+                    $resultsBox.hide();
+                    return;
+                }
+
+                const matched = allLinks.filter(item => item.text.toLowerCase().includes(searchText));
+
+                if (matched.length === 0) {
+                    $resultsBox.html('<div class="no-result">No matches found</div>').show();
+                    return;
+                }
+
+                matched.forEach(item => {
+                    const highlighted = item.text.replace(
+                        new RegExp('(' + searchText + ')', 'gi'),
+                        '<span class="highlight">$1</span>'
+                    );
+                    const listItem = `<a href="${item.href}">${highlighted}</a>`;
+                    $resultsBox.append(listItem);
+                });
+
+                $resultsBox.fadeIn(150);
+            });
+
+            // বাইরের অংশে ক্লিক করলে hide
+            $(document).on('click', function(e) {
+                if (!$(e.target).closest('.search__box').length) {
+                    $resultsBox.fadeOut(150);
+                }
+            });
+        });
+    </script>
+@endpush
+
+
