@@ -80,7 +80,7 @@ class FormBuilderController extends Controller
             ]);
         }
 
-        $response = $this->generateFormBuilderJson($apiKey, $elementCount, $prompt);
+        $response = $this->generateLogoJson($apiKey, $elementCount, $prompt);
 
         if ($response['status'] == 'success' && count($response['data']['form']) > 0) {
 
@@ -92,7 +92,7 @@ class FormBuilderController extends Controller
         return response()->json($response);
     }
 
-    protected function generateFormBuilderJson($apiKey, $elementCount = 2, $prompt, $model = 'gpt-4o-mini', $temperature = 0.4)
+    protected function generateLogoJson($apiKey, $elementCount = 2, $prompt, $model = 'gpt-4o-mini', $temperature = 0.4)
     {
         $client = new Client();
         $messages = [
@@ -186,7 +186,6 @@ class FormBuilderController extends Controller
 
     public function store(Request $request)
     {
-
         $data      = $request->except('_token');
         $validator = Validator::make($data, [
             'image'            => ['required', 'image', new FileTypeValidate(['jpg', 'JPG', 'jpeg', 'JPEG', 'png', 'PNG'])],

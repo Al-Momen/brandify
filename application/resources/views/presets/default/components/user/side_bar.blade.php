@@ -26,48 +26,47 @@
 
             <li>
                 <a href="#my-logos"
-                    class="{{ Route::is('user.form.index') ||
-                    Route::is('user.form.submission') ||
-                    Route::is('user.form.view') ||
-                    Route::is('user.form.answer.user.list') ||
-                    Route::is('user.form.answer.detail')
+                    class="{{ Route::is('user.logo.index') ||
+                    Route::is('user.logo.view') ||
+                    
+                    Route::is('user.logo.answer.detail')
                         ? 'active'
                         : 'collapsed' }}"
                     data-bs-toggle="collapse" role="button"
-                    aria-expanded="{{ Route::is('user.form.index') || Route::is('user.form.submission') || Route::is('user.form.view') || Route::is('user.form.answer.user.list') || Route::is('user.form.answer.detail') || Route::is('form.details') || Route::is('user.form.all.form') ? 'true' : 'false' }}"
+                    aria-expanded="{{ Route::is('user.logo.index')  || Route::is('user.logo.view') || Route::is('logo.details') || Route::is('user.logo.create') ? 'true' : 'false' }}"
                     aria-controls="my-logos">
                     <span class="link__icon">
-                        <i class="fa-solid fa-table-list"></i>
+                        <i class="fa-brands fa-font-awesome"></i>
                     </span>
-                    @lang('Forms')
+                    @lang('Logos')
                     <span class="dropdown__arrow">
                         <i class="fa-solid fa-chevron-right"></i>
                     </span>
                 </a>
-                <div class="collapse {{ Route::is('user.form.index') || Route::is('user.form.submission') || Route::is('user.form.view') || Route::is('user.form.answer.user.list') || Route::is('user.form.answer.detail') || Route::is('form.details') || Route::is('user.form.all.form') ? 'show' : '' }}"
+                <div class="collapse {{ Route::is('user.logo.index') || Route::is('user.logo.view') || Route::is('logo.details') || Route::is('user.logo.create') ? 'show' : '' }}"
                     id="my-logos">
                     <div class="sidebar__dropdown">
                         <ul>
                             <li>
-                                <a href="{{ route('user.form.all.form') }}"
-                                    class="{{ Route::is('user.form.all.form') || Route::is('form.details') ? 'active' : '' }}">
+                                <a href="{{ route('user.logo.create') }}"
+                                    class="{{ Route::is('user.logo.create') || Route::is('logo.details') ? 'active' : '' }}">
                                     <span class="link__icon">
-                                        <i class="fa-brands fa-wpforms"></i>
+                                        <i class="fa-brands fa-font-awesome"></i>
                                     </span>
-                                    @lang('All Forms')
+                                    @lang('Create Logo')
                                 </a>
                             </li>
                             <li>
-                                <a href="{{ route('user.form.index') }}"
-                                    class="{{ Route::is('user.form.index') || Route::is('user.form.view') || Route::is('user.form.answer.user.list') || Route::is('user.form.answer.detail') ? 'active' : '' }}">
+                                <a href="{{ route('user.logo.index') }}"
+                                    class="{{ Route::is('user.logo.index') || Route::is('user.logo.view') ? 'active' : '' }}">
                                     <span class="link__icon">
                                         <i class="fa-solid fa-indent"></i>
                                     </span>
-                                    @lang('Form List')
+                                    @lang('My logo List')
                                 </a>
                             </li>
-                            <li> <a href="{{ route('user.form.submission') }}"
-                                    class="{{ Route::is('user.form.submission') ? 'active' : '' }}">
+                            <li> <a href="{{ route('user.logo.submission') }}"
+                                    class="{{ Route::is('user.logo.submission') ? 'active' : '' }}">
                                     <span class="link__icon">
                                         <i class="fa-solid fa-clipboard-check"></i>
                                     </span>

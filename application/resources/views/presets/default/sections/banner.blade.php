@@ -88,16 +88,14 @@
                                     aria-expanded="false">
                                     <img src="{{ getImage(getFilePath('banner') . 'dropdown3.svg') }}"
                                         alt="@lang('image')">
-                                    @lang('Shape')
+                                    @lang('Category')
                                 </button>
                                 <ul class="dropdown-menu">
+                                    @foreach ($categories ?? [] as $item)
+                                        
                                     <li><a class="dropdown-item" href="#">Action</a></li>
-                                    <li>
-                                        <a class="dropdown-item" href="#">Another action</a>
-                                    </li>
-                                    <li>
-                                        <a class="dropdown-item" href="#">Something else here</a>
-                                    </li>
+                                    @endforeach
+                                    
                                 </ul>
                             </div>
                             <div class="dropdown">

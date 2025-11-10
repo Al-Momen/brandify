@@ -14,6 +14,8 @@ class Status
     const CATEGORY_ENABLE  = 1;
     const CATEGORY_DISABLE = 0;
 
+    const LOGO_ENABLE  = 1;
+    const LOGO_DISABLE = 0;
 
     const VERIFIED   = 1;
     const UNVERIFIED = 0;

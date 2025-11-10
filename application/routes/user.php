@@ -71,11 +71,11 @@ Route::middleware('auth')->name('user.')->group(function () {
                 Route::get('user-notification-all', 'notificationAll')->name('notification.all');
             });
 
-            //form builder setting
-            Route::controller('FormBuilderController')->name('form.')->group(function () {
-                Route::get('all-form', 'allForm')->name('all.form');
-                Route::get('form-view/{id}', 'view')->name('view');
-                Route::get('form-details/{id}', 'formDetails')->name('details');
+            //Logo setting
+            Route::controller('LogoController')->name('logo.')->group(function () {
+                Route::get('all-logo', 'allLogo')->name('all.logo');
+                Route::get('logo-view/{id}', 'view')->name('view');
+                Route::get('logo-details/{id}', 'logoDetails')->name('details');
                 Route::get('index', 'index')->name('index');
                 Route::get('create', 'create')->name('create');
                 Route::post('store', 'store')->name('store');
