@@ -65,14 +65,7 @@
                                     @lang('My logo List')
                                 </a>
                             </li>
-                            <li> <a href="{{ route('user.logo.submission') }}"
-                                    class="{{ Route::is('user.logo.submission') ? 'active' : '' }}">
-                                    <span class="link__icon">
-                                        <i class="fa-solid fa-clipboard-check"></i>
-                                    </span>
-                                    @lang('Submission List')
-                                </a>
-                            </li>
+                           
                         </ul>
                     </div>
                 </div>

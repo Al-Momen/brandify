@@ -72,7 +72,7 @@ Route::middleware('auth')->name('user.')->group(function () {
             });
 
             //Logo setting
-            Route::controller('LogoController')->name('logo.')->group(function () {
+            Route::controller('LogoController')->name('logo.')->prefix('logo')->group(function () {
                 Route::get('all-logo', 'allLogo')->name('all.logo');
                 Route::get('logo-view/{id}', 'view')->name('view');
                 Route::get('logo-details/{id}', 'logoDetails')->name('details');

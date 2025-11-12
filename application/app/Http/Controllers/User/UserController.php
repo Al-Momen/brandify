@@ -3,23 +3,28 @@
 namespace App\Http\Controllers\User;
 
 use App\Models\Form;
+use App\Models\Logo;
 use App\Lib\FormProcessor;
 use App\Models\Transaction;
+use App\Models\Subscription;
 use Illuminate\Http\Request;
 use App\Lib\GoogleAuthenticator;
 use App\Models\UserNotification;
 use App\Http\Controllers\Controller;
-use App\Models\FormBuilder;
-use App\Models\FormBuilderAnswer;
+use App\Models\SupportTicket;
+use PHPUnit\Framework\Attributes\Ticket;
 
 class UserController extends Controller
 {
     public function home()
     {
-        $pageTitle = 'Dashboard';
-        $user                  = auth()->user();
-        $transactions          = Transaction::where('user_id', $user->id)->latest()->paginate(getPaginate(10));
-        return view('UserTemplate::dashboard', compact('pageTitle', 'transactions'));
+        $pageTitle    = 'Dashboard';
+        $user         = auth()->user();
+        $transactions = Transaction::where('user_id', $user->id)->latest()->paginate(getPaginate(10));
+        $totalLogos = Logo::where('user_id',auth()->id())->sum('logo_count');
+        $totalTickets = SupportTicket::where('user_id',auth()->id())->count();
+  
+        return view('UserTemplate::dashboard', compact('pageTitle', 'transactions','totalLogos','totalTickets'));
     }
 
     public function depositHistory(Request $request)

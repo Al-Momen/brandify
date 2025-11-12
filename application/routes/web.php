@@ -32,11 +32,11 @@ Route::controller('SiteController')->group(function () {
 
     Route::get('placeholder-image/{size}', 'placeholderImage')->name('placeholder.image');
     Route::get('maintenance-mode', 'maintenance')->withoutMiddleware('maintenance')->name('maintenance');
+ 
+    //  generate logo route
+    Route::post('generate', 'generate')->name('logo.generate');
 
     Route::get('/{slug}', 'pages')->name('pages');
     Route::get('/', 'index')->name('home');
 
-
-
-    Route::get('form-details/{id}', 'formDetails')->name('form.details');
 });

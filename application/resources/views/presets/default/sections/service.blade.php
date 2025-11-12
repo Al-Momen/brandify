@@ -5,7 +5,7 @@
 
 <!--==========================  Services Section Start  ==========================-->
 <section class="services my-120">
-    <div class="services__bg bg--img">
+    <div class="services__bg bg--img" data-background-image="{{ getImage(getFilePath('service') . 'services-bg.png') }}">
         <img src="{{ getImage(getFilePath('service') . 'services-bg.png') }}" alt="@lang('image')">
     </div>
     <div class="container">
@@ -23,11 +23,11 @@
             @foreach ($serviceSectionElements ?? [] as $item)
                 <div class="col-lg-4 col-sm-6">
                     <div class="services__items">
-                        <a href="#" class="services__thumb">
+                        <a href="javascript:void(0)" class="services__thumb">
                             <img class="w--100" src="{{ getImage(getFilePath('service') . $item->data_values->image) }}" alt="@lang('image')">
                         </a>
                         <div class="services__content">
-                            <h4><a href="#">{{ __($item->data_values->heading) }}</a></h4>
+                            <h4><a href="javascript:void(0)">{{ __($item->data_values->heading) }}</a></h4>
                             <p>
                                 {{ __($item->data_values->subheading) }}
                             </p>

@@ -3,10 +3,14 @@
 namespace App\Http\Controllers;
 
 use Carbon\Carbon;
+use App\Models\Logo;
 use App\Models\Page;
+use GuzzleHttp\Client;
+use App\Models\Category;
 use App\Models\Frontend;
 use App\Models\Language;
 use App\Constants\Status;
+use App\Models\LogoImage;
 use App\Models\Subscriber;
 use App\Models\FormBuilder;
 use Illuminate\Http\Request;
@@ -14,6 +18,7 @@ use App\Models\SupportTicket;
 use App\Models\SupportMessage;
 use App\Models\AdminNotification;
 use Illuminate\Support\Facades\Cookie;
+use Illuminate\Support\Facades\Validator;
 
 class SiteController extends Controller
 {
@@ -205,10 +210,154 @@ class SiteController extends Controller
         return back()->withNotify($notify);
     }
 
-    public function formDetails($id)
+    public function generate(Request $request)
     {
-        $pageTitle   = "Form Details";
-        $formBuilder = FormBuilder::where('status', Status::FORM_BUILDER_ENABLE)->where('id', $id)->first();
-        return view('UserTemplate::form_builder.form_details', compact('pageTitle', 'formBuilder'));
+
+        $apiKey = gs()->open_ai_key;
+        $category = Category::where('id', $request->categoryId)->where('status', Status::CATEGORY_ENABLE)->first();
+
+        if (!$category) {
+            return response()->json([
+                'status'  => 'error',
+                'message' => 'Category is not found.'
+            ]);
+        }
+
+        $validator = Validator::make($request->all(), [
+            'brandName'        => 'required|string',
+            'colorCode'        => 'required|string',
+            'logoCount'        => 'required|numeric|min:1',
+            'fontName'         => 'required|string',
+            'categoryId'       => 'required|numeric',
+            'removeBackground' => 'nullable|in:true,false,1,0',
+            'prompt'           => 'nullable|string',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json([
+                'status' => 'error',
+                'errors' => $validator->errors(),
+            ], 422);
+        }
+
+        $data = [
+            'brandName'        => $request->brandName,
+            'logoCount'        => (int) $request->logoCount,
+            'fontStyle'        => $request->fontName,
+            'categoryName'     => $category->name,
+            'colorCode'        => $request->colorCode,
+            'removeBackground' => $request->removeBackground ?? false
+        ];
+
+
+        //  Base structured prompt + user prompt 
+        $prompt = "Create {$data['logoCount']} modern, professional logo"
+            . ($data['logoCount'] > 1 ? 's' : '')
+            . " for brand '{$data['brandName']}' "
+            . "using color {$data['colorCode']} and font style {$data['fontStyle']}. "
+            . "Tagline: '{$data['categoryName']}'.";
+        if (!empty($request->prompt)) {
+            $prompt .= " Additional details: {$request->prompt}";
+        }
+
+        // if background remove 
+        if ($request->removeBackground) {
+            $prompt .= " Please make the logo with a transparent background.";
+        }
+
+        if (!$apiKey) {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'API key is missing for the selected engine.',
+            ]);
+        }
+
+        $response = $this->generateLogoFromGemini($apiKey, $prompt);
+
+        if (isset($response['status']) && $response['status'] == 'error') {
+            return response()->json([
+                'status' => 'error',
+                'message' => $response['message'],
+            ]);
+        }
+
+        $basePath = getFilePath('generate_logo');
+
+        $images = [];
+
+        foreach ($response['logos'] as $base64) {
+            $imageData = base64_decode($base64);
+            $filename  = 'image_' . time() . '_' . rand(9999, 100000) . '.png';
+            file_put_contents($basePath . $filename, $imageData);
+            $images[] = $filename;
+        }
+
+        return response()->json([
+            'status'  => 'success',
+            'message' => ['success' => 'Logo generated successfully'],
+            'data'    => $images,
+            'path'    => asset($basePath)
+        ]);
+    }
+
+    protected function generateLogoFromGemini($apiKey, $prompt)
+    {
+        $url = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-image-preview:generateContent";
+
+        try {
+            $client = new Client();
+            $result = $client->post(
+                $url,
+                [
+                    'headers' => [
+                        'Content-Type'   => 'application/json',
+                        'x-goog-api-key' => $apiKey,
+                    ],
+                    'json' => [
+                        "contents" => [
+                            [
+                                "parts" => [
+                                    ["text" => $prompt]
+                                ]
+                            ]
+                        ]
+                    ]
+                ]
+            );
+
+            $result = json_decode($result->getBody());
+
+            if (empty($result->candidates[0]->content->parts)) {
+                return [
+                    'status' => 'error',
+                    'message' => 'Invalid error from API request'
+                ];
+            }
+
+            $images = collect($result->candidates[0]->content->parts)
+                ->filter(fn($p) => isset($p->inlineData->data))
+                ->map(fn($p) => $p->inlineData->data)
+                ->values()
+                ->toArray();
+
+            if (empty($images)) {
+                return [
+                    'status' => 'error',
+                    'message' => 'No images generated'
+                ];
+            }
+
+            return [
+                'status' => 'success',
+                'message' => 'Logos generated successfully!',
+                'logos' => $images
+            ];
+        } catch (\Exception $e) {
+            return [
+                'status' => 'error',
+                'message' => 'Gemini API request failed: ' . $e->getMessage(),
+                'logos' => []
+            ];
+        }
     }
 }

@@ -119,6 +119,10 @@ trait FileInfo
             'path' => 'assets/images/frontend/about/',
         ];
 
+        $data['generate_logo'] = [
+            'path' => 'assets/images/backend/generate_logo/',
+        ];
+
         return $data;
     }
 }

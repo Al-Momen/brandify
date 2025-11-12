@@ -49,4 +49,30 @@ class CurlRequest
 	    curl_close($ch);
 	    return $result;
 	}
+
+	public static function curlAdsPostContent($url, $postData = null, $header = null)
+    {
+        if (is_array($postData)) {
+            $params = http_build_query($postData);
+        } else {
+            $params = $postData;
+        }
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+        if ($header) {
+            curl_setopt($ch, CURLOPT_HTTPHEADER, $header);
+        }
+        curl_setopt($ch, CURLOPT_URL, $url);
+        curl_setopt($ch, CURLOPT_POST, true);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $params);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        $result = curl_exec($ch);
+        curl_close($ch);
+        return $result;
+    }
+
+
+
+
 }

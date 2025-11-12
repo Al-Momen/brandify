@@ -9,13 +9,16 @@
                 <div class="d-block w-100">
                     <div class="dashboard__card card">
                         <div class="dashboard__card__item">
-                            <span class="dashboard__card__icon"><i class="fas fa-coins"></i></span>
-                            <p>Balance</p>
+                            <span class="dashboard__card__icon">
+                                <i class="fa-solid fa-money-bill-1"></i>
+                            </span>
+                            <p>@lang('Current Balance')</p>
                         </div>
                         <div class="d-flex justify-content-between">
-                            <h3 class="dashboard__card__price">$140.00</h3>
-                            <a class="dashboard__card__btn-text" href="#">View All<span><i
-                                        class="fa-solid fa-arrow-right"></i></span></a>
+                            <h3 class="dashboard__card__price">{{ $general->cur_sym . showAmount($user->balance) }}</h3>
+                            <a class="dashboard__card__btn-text" href="{{ route('user.deposit') }}">@lang('View All')<span>
+                                    <i class="fa-solid fa-arrow-right"></i></span>
+                            </a>
                         </div>
                     </div>
                 </div>
@@ -25,12 +28,13 @@
                     <div class="dashboard__card card">
                         <div class="dashboard__card__item">
                             <span class="dashboard__card__icon"><i class="fas fa-coins"></i></span>
-                            <p>Total Logo</p>
+                            <p>@lang('Total Credit')</p>
                         </div>
                         <div class="d-flex justify-content-between">
-                            <h3 class="dashboard__card__price">$140.00</h3>
-                            <a class="dashboard__card__btn-text" href="#">View All<span><i
-                                        class="fa-solid fa-arrow-right"></i></span></a>
+                            <h3 class="dashboard__card__price">{{ $user->credit }}</h3>
+                            <a class="dashboard__card__btn-text"
+                                href="{{ route('user.credit.purchase') }}">@lang('View All')<span>
+                                    <i class="fa-solid fa-arrow-right"></i></span></a>
                         </div>
                     </div>
                 </div>
@@ -39,13 +43,18 @@
                 <div class="d-block w-100">
                     <div class="dashboard__card card">
                         <div class="dashboard__card__item">
-                            <span class="dashboard__card__icon"><i class="fas fa-coins"></i></span>
-                            <p>Total Brand Kit</p>
+                            <span class="dashboard__card__icon">
+                                <i class="fa-solid fa-photo-film"></i>
+                            </span>
+                            <p>@lang('Total Logo')</p>
                         </div>
                         <div class="d-flex justify-content-between">
-                            <h3 class="dashboard__card__price">$140.00</h3>
-                            <a class="dashboard__card__btn-text" href="#">View All<span><i
-                                        class="fa-solid fa-arrow-right"></i></span></a>
+                            <h3 class="dashboard__card__price">{{ $totalLogos }}</h3>
+                            <a class="dashboard__card__btn-text"
+                                href="{{ route('user.logo.create') }}">@lang('View All')<span>
+                                    <i class="fa-solid fa-arrow-right"></i>
+                                </span>
+                            </a>
                         </div>
                     </div>
                 </div>
@@ -54,13 +63,18 @@
                 <div class="d-block w-100">
                     <div class="dashboard__card card">
                         <div class="dashboard__card__item">
-                            <span class="dashboard__card__icon"><i class="fas fa-coins"></i></span>
-                            <p> Subscription</p>
+                            <span class="dashboard__card__icon">
+                                <i class="fa-solid fa-play"></i>
+                            </span>
+                            <p>@lang('Total Tickets')</p>
                         </div>
                         <div class="d-flex justify-content-between">
-                            <h3 class="dashboard__card__price">$140.00</h3>
-                            <a class="dashboard__card__btn-text" href="#">View All<span><i
-                                        class="fa-solid fa-arrow-right"></i></span></a>
+                           <h3 class="dashboard__card__price">{{ $totalTickets }}</h3>
+                            <a class="dashboard__card__btn-text"
+                                href="{{ route('ticket') }}">@lang('View All')<span>
+                                    <i class="fa-solid fa-arrow-right"></i>
+                                </span>
+                            </a>
                         </div>
                     </div>
                 </div>
