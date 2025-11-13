@@ -1,60 +1,61 @@
-@extends($activeTemplate . 'layouts.master')
-@section('content')
-    <div class="dashboard__wrapper">
-        <div class="row g-4 justify-content-center">
-            <div class="col-lg-12">
-                <div class="dashboard-table">
-                    <div class="dashboard__table">
-                        <div class="table__topbar">
-                            <h5>{{ __($pageTitle) }}</h5>
-                            <div class="table__topbar__right">
-                                <div class="search__box">
-                                    <form action="">
-                                        <div class="search__box">
-                                            <input type="text" class="form-control" name="search"
-                                                value="{{ request()->search }}" placeholder="@lang('Search TRX')">
-                                            <button type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
-                                        </div>
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
-                        <table class="table table--responsive--md">
+@extends('admin.layouts.app')
+@section('panel')
+    <form method="GET" id="statusForm">
+        <div class="row gy-4 justify-content-between mb-3 pb-3">
+            <div class="col-xl-4 col-lg-6">
+                <div class="d-flex flex-wrap justify-content-start">
+                    <div class="search-input--wrap position-relative">
+                        <input type="text" name="search" class="form-control" placeholder="@lang('Search brand name')..."
+                            value="{{ request()->search ?? '' }}">
+                        <button class="search--btn position-absolute"><i class="fa fa-search"></i></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+
+    <div class="row gy-4">
+        <div class="col-md-12 mb-30">
+            <div class="card b-radius--10 ">
+                <div class="card-body p-0">
+                    <div class="table-responsive--sm table-responsive">
+                        <table class="table table--light style--two custom-data-table">
                             <thead>
                                 <tr>
                                     <th>@lang('SI')</th>
+                                    <th>@lang('Username')</th>
                                     <th>@lang('Brand Name')</th>
                                     <th>@lang('Category')</th>
-                                    <th>@lang('Font Style')</th>
-                                    <th>@lang('Created At')</th>
                                     <th>@lang('Action')</th>
                                 </tr>
                             </thead>
-                            <tbody>
+                            <tbody id="items_table__body">
                                 @forelse($logos as $logo)
                                     <tr>
                                         <td>#{{ $loop->iteration }}</td>
+                                        <td data-label="Username">
+                                            <a href="{{ route('admin.users.detail', $logo->user->id) }}">
+                                                {{ $logo->user?->fullname }}
+                                                <p>{{ '@' . $logo->user?->username }}</p>
+                                            </a>
+                                        </td>
 
                                         <td data-label="Brand Name">
                                             {{ __($logo->brand_name) }}
                                         </td>
 
-                                        <td data-label="Category">
-                                            {{ $logo->category?->name }}
+                                        <td data-label="Brand Name">
+                                            {{ __($logo->category->name) }}
                                         </td>
 
-                                        <td data-label="Font Style">
-                                            {{ $logo->font_style }}
-                                        </td>
+                                        <td>
+                                            <div class="d-flex align-items-center justify-content-end gap-2">
 
-                                        <td data-label="Created At">
-                                            {{ showDateTime($logo->created_at) }}
-                                        </td>
-                                        <td data-label="@lang('Details')">
-                                            <a href="javascript:void(0)" data-id="{{ $logo->id }}"
-                                                class="btn btn--base btn--sm action--btn viewLogoBtn">
-                                                <i class="fa fa-eye"></i>
-                                            </a>
+                                                <button class="btn btn-sm viewLogoBtn" title="@lang('View')"
+                                                    data-id="{{ $logo->id }}">
+                                                    <i class="fa-solid fa-eye"></i>
+                                                </button>
+                                            </div>
                                         </td>
                                     </tr>
                                 @empty
@@ -65,7 +66,12 @@
                             </tbody>
                         </table>
                     </div>
-                    {{ $logos->links() }}
+                </div>
+
+                <div id="pagination-wrapper" class="pagination__wrapper py-4 {{ $logos->hasPages() ? '' : 'd-none' }}">
+                    @if ($logos->hasPages())
+                        {{ paginateLinks($logos) }}
+                    @endif
                 </div>
             </div>
         </div>
@@ -84,28 +90,28 @@
                     <div class="row gy-3">
                         <div class="col-md-6">
                             <label class="fw-bold">@lang('Brand Name')</label>
-                            <p id="logoBrandName">—</p>
+                            <p class="text-muted" id="logoBrandName">—</p>
                         </div>
                         <div class="col-md-6">
                             <label class="fw-bold">@lang('Category')</label>
-                            <p id="logoCategory">—</p>
+                            <p class="text-muted" id="logoCategory">—</p>
                         </div>
                         <div class="col-md-6">
                             <label class="fw-bold">@lang('Created By')</label>
-                            <p id="logoUser">—</p>
+                            <p class="text-muted" id="logoUser">—</p>
                         </div>
                         <div class="col-md-6">
                             <label class="fw-bold">@lang('Font Style')</label>
-                            <p id="logoFont">—</p>
+                            <p class="text-muted" id="logoFont">—</p>
                         </div>
                         <div class="col-md-6">
                             <label class="fw-bold">@lang('Created At')</label>
-                            <p id="logoCreatedAt">—</p>
+                            <p class="text-muted" id="logoCreatedAt">—</p>
                         </div>
                         <div class="col-md-6">
                             <label class="fw-bold">@lang('Color')</label>
                             <div class="d-flex align-items-center gap-2">
-                                <span id="logoColorCode">—</span>
+                                <span id="logoColorCode" class="text-muted">—</span>
                                 <span id="colorPreview"
                                     style="width:25px;height:25px;border-radius:50%;border:1px solid #ddd;"></span>
                             </div>
@@ -116,26 +122,27 @@
 
                     <h6 class="fw-bold mt-3">@lang('Generated Logos')</h6>
                     <div id="logoImages" class="row g-3 mt-2 text-center">
-                        <p>@lang('No Images Found')</p>
+                        <p class="text-muted">@lang('No Images Found')</p>
                     </div>
                 </div>
 
                 <div class="modal-footer">
-                    <button type="button" class="btn btn--sm btn--base text--white"
-                        data-bs-dismiss="modal">@lang('Close')</button>
+                    <button type="button" class="btn btn--sm btn--base text--white" data-bs-dismiss="modal">@lang('Close')</button>
                 </div>
             </div>
         </div>
     </div>
-@endsection
 
+
+
+@endsection
 
 @push('script')
     <script>
         $(document).on('click', '.viewLogoBtn', function() {
             let id = $(this).data('id');
             let modal = $('#viewLogoModal');
-            let url = "{{ route('user.logo.view', ':id') }}".replace(':id', id);
+            let url = "{{ route('admin.logo.view', ':id') }}".replace(':id', id);
 
             $.ajax({
                 url: url,
@@ -159,7 +166,7 @@
                         modal.find('#logoUser').text("@" + data.user.username ?? '—');
                         modal.find('#logoFont').text(data.font_style ?? '—');
                         modal.find('#logoColorCode').text(data.color ?? '—');
-                        modal.find('#colorPreview').css('background-color', '#' + data.color ?? '#fff');
+                        modal.find('#colorPreview').css('background-color', '#'+data.color ?? '#fff');
                         let createdAt = data.created_at ? new Date(data.created_at) : null;
 
                         if (createdAt) {
@@ -177,31 +184,23 @@
                             modal.find('#logoCreatedAt').text('—');
                         }
 
-                        let imgHtml = '';
+                        let imgHTML = '';
                         if (data.logo_images && data.logo_images.length > 0) {
-                            imgHtml += `<div class="row g-3">`; // Bootstrap grid start
+                            imgHTML += `<div class="row">`;
                             data.logo_images.forEach(img => {
-                                imgHtml += `
-                                    <div class="col-6 col-md-4 col-lg-3 text-center">
-                                        <div class="border-0 shadow-sm h-100">
-                                            <img src="${"{{ asset(getFilePath('generate_logo')) }}" + '/' + img.image}" 
-                                                class="img-fluid rounded mb-2" 
-                                                alt="Logo">
-                                            <a href="${"{{ asset(getFilePath('generate_logo')) }}" + '/' + img.image}" 
-                                            download 
-                                            class="btn btn--sm btn--base w-100">
-                                                <i class="las la-download"></i> @lang('Download')
-                                            </a>
-                                        </div>
-                                    </div>
-                                `;
+                                imgHTML += `
+                            <div class="col-md-4">
+                                <img src="${"{{ asset(getFilePath('generate_logo')) }}" + '/' + img.image}" 
+                                     class="img-fluid rounded border shadow-sm mb-2" alt="logo">
+                            </div>
+                        `;
                             });
-                            imgHtml += `</div>`; // row end
+                            imgHTML += `</div>`;
                         } else {
-                            imgHtml = `<p class="text-muted">@lang('No images found')</p>`;
+                            imgHTML = `<p class="text-center text-muted">No images available</p>`;
                         }
 
-                        modal.find('#logoImages').html(imgHtml);
+                        modal.find('#logoImages').html(imgHTML);
                     }
                 },
                 error: function() {

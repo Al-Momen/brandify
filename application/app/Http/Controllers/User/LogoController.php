@@ -13,24 +13,15 @@ use Illuminate\Support\Facades\Validator;
 
 class LogoController extends Controller
 {
-    public function allLogo(Request $request)
-    {
-        $pageTitle  = "All Logo";
-        $Logos = Logo::with(['user','logo_images'])
-            ->searchable(['title'])
-            ->latest()->paginate(getPaginate());
-
-        return view('UserTemplate::logo.all_logo', compact('pageTitle', 'Logos'));
-    }
 
     public function index(Request $request)
     {
         $status = $request->get('status', 'all');
-        $logos = Logo::with('user','logo_images')
-        ->searchable(['brand_name'])
-        ->where('user_id', auth()->id())
-        ->latest()
-        ->paginate(getPaginate());
+        $logos = Logo::with('user', 'logo_images')
+            ->searchable(['brand_name'])
+            ->where('user_id', auth()->id())
+            ->latest()
+            ->paginate(getPaginate());
         $pageTitle = ucfirst($status) . ' Logos';
         return view('UserTemplate::logo.index', compact('logos', 'pageTitle'));
     }
@@ -126,7 +117,7 @@ class LogoController extends Controller
         }
 
         $basePath = getFilePath('generate_logo');
-        
+
         $images = [];
 
         foreach ($response['logos'] as $base64) {
@@ -148,15 +139,13 @@ class LogoController extends Controller
         $logo->is_remove_background = $data['removeBackground'] == "true" ? 1 : 0;
         $logo->save();
 
-        
+
         foreach ($images ?? [] as $value) {
             $logo_image = new LogoImage();
             $logo_image->logo_id = $logo->id;
             $logo_image->image = $value;
             $logo_image->save();
-        }
-        
-;
+        };
         if ($response['status'] == 'success' && count($images) > 0) {
             $user = auth()->user();
             $user->credit -= (gs()->credit_cost_per_logo * count($images)); // adjust cost per logo if needed
@@ -234,12 +223,12 @@ class LogoController extends Controller
 
     public function view($id)
     {
-        $logo = Logo::where('id', $id)->where('user_id', auth()->id())->first();
-        if (!$logo) {
-            $notify[] = ['error', 'Logo Not Found'];
-            return back()->withNotify($notify);
-        }
-        $pageTitle = 'logo Details';
-        return view('UserTemplate::logo.details', compact('pageTitle', 'logo'));
+
+        $logos = Logo::with(['logo_images', 'category', 'user'])->where('user_id', auth()->id())->findOrFail($id);
+
+        return response()->json([
+            'status' => 'success',
+            'data' => $logos,
+        ]);
     }
 }

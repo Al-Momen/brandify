@@ -23,26 +23,13 @@
             <div class="col-xl-12">
                 <div class="row gy-4">
                     <div class="col-xxl-3 col-xl-4 col-md-6">
-                        <a class="dashboard-widget--card position-relative" href="">
+                        <a class="dashboard-widget--card position-relative" href="{{route('admin.logo.index')}}">
                             <div class="dashboard-widget__icon">
                                 <i class="dashboard-card-icon fa-regular fa-newspaper"></i>
                             </div>
                             <div class="dashboard-widget__content">
-                                <span class="title">@lang('Total surveys')</span>
-                                <h5 class="number"></h5>
-                            </div>
-                        </a>
-                    </div>
-
-                    <div class="col-xxl-3 col-xl-4 col-md-6">
-                        <a class="dashboard-widget--card position-relative"
-                            href="">
-                            <div class="dashboard-widget__icon">
-                                <i class="dashboard-card-icon fa-solid fa-paste"></i>
-                            </div>
-                            <div class="dashboard-widget__content">
-                                <span class="title">@lang('Total Submissions')</span>
-                                <h5 class="number"></h5>
+                                <span class="title">@lang('Total Logo')</span>
+                                <h5 class="number">{{$widget['total_logos']}}</h5>
                             </div>
                         </a>
                     </div>
@@ -58,6 +45,21 @@
                             </div>
                         </a>
                     </div>
+
+                    <div class="col-xxl-3 col-xl-4 col-md-6">
+                        <a class="dashboard-widget--card position-relative"
+                            href="{{route('admin.deposit.log')}}">
+                            <div class="dashboard-widget__icon">
+                                <i class="dashboard-card-icon fa-solid fa-paste"></i>
+                            </div>
+                            <div class="dashboard-widget__content">
+                                <span class="title">@lang('Total Deposit')</span>
+                                <h5 class="number">{{gs()->cur_sym}}{{showAmount($widget['total_deposit_amount'])}}</h5>
+                            </div>
+                        </a>
+                    </div>
+
+                    
 
                     <div class="col-xxl-3 col-xl-4 col-md-6">
                         <a class="dashboard-widget--card position-relative" href="{{ route('admin.ticket.index') }}">
@@ -78,9 +80,9 @@
                 <div class="card bg--white br--solid">
                     <div class="card-body position-relative">
                         <div class="d-flex align-items-center justify-content-between border-bottom pb-3 mb-3">
-                            <h5 class="card-title mb-0">@lang('Monthly Payment & Withdraw Report')</h5>
+                            <h5 class="card-title mb-0">@lang('Monthly Payment & Logo generate Report')</h5>
                         </div>
-                        <div id="account-chart" data-withdrawals="{{ base64_encode(json_encode($withdrawalsChart)) }}"
+                        <div id="account-chart" data-logos="{{ base64_encode(json_encode($logosChart)) }}"
                             data-deposits="{{ base64_encode(json_encode($depositsChart)) }}"></div>
                     </div>
                 </div>
@@ -264,105 +266,115 @@
     @endpush
 
     @push('script')
-        <script>
-            (function($) {
-                'use strict';
+       <script>
+    (function($) {
+        'use strict';
 
-                const $chartData = $('#account-chart');
-                const withdrawalsEncoded = $chartData.data('withdrawals');
-                const depositsEncoded = $chartData.data('deposits');
+        const $chartData = $('#account-chart');
+        const logosEncoded = $chartData.data('logos');
+        const depositsEncoded = $chartData.data('deposits');
 
-                const withdrawalsChart = JSON.parse(atob(withdrawalsEncoded));
-                const depositsChart = JSON.parse(atob(depositsEncoded));
+        const logosChart = JSON.parse(atob(logosEncoded));
+        const depositsChart = JSON.parse(atob(depositsEncoded));
 
-                var options = {
-                    chart: {
-                        type: 'bar',
-                        stacked: false,
-                        height: '333px'
-                    },
-                    grid: {
-                        show: true,
-                        strokeDashArray: 4,
-                        borderColor: '#e0e0e0',
-                        position: 'back'
-                    },
-                    stroke: {
-                        width: 0
-                    },
-                    dataLabels: {
-                        enabled: false
-                    },
-                    plotOptions: {
-                        bar: {
-                            columnWidth: '50%',
-                            horizontal: false
-                        }
-                    },
-                    colors: ['#0091ff', '#00a86b'],
-                    series: [{
-                            name: 'Withdrawals',
-                            data: withdrawalsChart.values
-                        },
-                        {
-                            name: 'Deposits',
-                            data: depositsChart.values
-                        }
-                    ],
-                    fill: {
-                        opacity: 1
-                    },
-                    labels: depositsChart.labels,
-                    xaxis: {
-                        categories: depositsChart.labels,
-                        title: {
-                            text: 'Months',
-                            style: {
-                                fontSize: '14px',
-                                fontWeight: 'bold',
-                                color: '#333'
-                            }
-                        },
-                        labels: {
-                            show: true
-                        },
-                        axisTicks: {
-                            show: true
-                        },
-                        axisBorder: {
-                            show: true
-                        }
-                    },
-                    yaxis: {
-                        min: 0,
-                        title: {
-                            text: 'Amount',
-                            style: {
-                                fontSize: '14px',
-                                fontWeight: 'bold',
-                                color: '#333'
-                            }
-                        }
-                    },
-                    tooltip: {
-                        shared: true,
-                        intersect: false,
-                        y: {
-                            formatter: function(y) {
-                                return typeof y !== "undefined" ? "{{ __($general->cur_sym) }}" + y.toFixed(0) : y;
-                            }
-                        }
-                    },
-                    legend: {
-                        labels: {
-                            useSeriesColors: true
+        var options = {
+            chart: {
+                type: 'bar',
+                stacked: false,
+                height: '333px'
+            },
+            grid: {
+                show: true,
+                strokeDashArray: 4,
+                borderColor: '#e0e0e0',
+                position: 'back'
+            },
+            stroke: {
+                width: 0
+            },
+            dataLabels: {
+                enabled: false
+            },
+            plotOptions: {
+                bar: {
+                    columnWidth: '50%',
+                    horizontal: false
+                }
+            },
+            colors: ['#0091ff', '#11a259'],
+            series: [{
+                    name: 'logos',
+                    data: logosChart.values
+                },
+                {
+                    name: 'Deposits',
+                    data: depositsChart.values
+                }
+            ],
+            fill: {
+                opacity: 1
+            },
+            labels: depositsChart.labels,
+            xaxis: {
+                categories: depositsChart.labels,
+                title: {
+                    text: 'Months',
+                    style: {
+                        fontSize: '14px',
+                        fontWeight: 'bold',
+                        color: '#333'
+                    }
+                },
+                labels: {
+                    show: true
+                },
+                axisTicks: {
+                    show: true
+                },
+                axisBorder: {
+                    show: true
+                }
+            },
+            yaxis: {
+                min: 0,
+                title: {
+                    text: 'Amount',
+                    style: {
+                        fontSize: '14px',
+                        fontWeight: 'bold',
+                        color: '#333'
+                    }
+                }
+            },
+            tooltip: {
+                shared: true,
+                intersect: false,
+                y: {
+                    formatter: function(y, {
+                        seriesIndex,
+                        dataPointIndex,
+                        w
+                    }) {
+        
+                        if (w.config.series[seriesIndex].name === 'logos') {
+                            return typeof y !== "undefined" ? y.toFixed(0) : y; 
+                        } else {
+                
+                            return typeof y !== "undefined" ? "{{ __($general->cur_sym) }}" + y.toFixed(0) : y;
                         }
                     }
-                };
+                }
+            },
+            legend: {
+                labels: {
+                    useSeriesColors: true
+                }
+            }
+        };
 
-                var chart = new ApexCharts(document.querySelector("#account-chart"), options);
-                chart.render();
-            })(jQuery)
-        </script>
+        var chart = new ApexCharts(document.querySelector("#account-chart"), options);
+        chart.render();
+    })(jQuery)
+</script>
     @endpush
 @endadminHas

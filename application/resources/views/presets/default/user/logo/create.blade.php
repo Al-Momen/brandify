@@ -140,47 +140,29 @@
                                     <div class="view-details-card__block">
                                         <div class="view-details-card__action">
                                             <a class="view-details-card__btn download-link" href="javascript:void(0)">
-                                                <svg width="16" height="17" viewBox="0 0 16 17" fill="none"
-                                                    xmlns="http://www.w3.org/2000/svg">
-                                                    <path
-                                                        d="M2 11.1666L4.97978 8.18679C5.20615 7.96045 5.51319 7.83325 5.83333 7.83325C6.15348 7.83325 6.46051 7.96045 6.68687 8.18679L9.33333 10.8333M9.33333 10.8333L10.3333 11.8333M9.33333 10.8333L10.6465 9.52012C10.8728 9.29379 11.1799 9.16659 11.5 9.16659C11.8201 9.16659 12.1272 9.29379 12.3535 9.52012L14 11.1666"
-                                                        stroke="url(#paint0_linear_234_1149)" stroke-width="1.5"
-                                                        stroke-linecap="round" stroke-linejoin="round" />
-                                                    <path
-                                                        d="M14.3337 8.50008C14.3337 11.3199 14.3337 12.7298 13.535 13.6649C13.4216 13.7977 13.2979 13.9213 13.1651 14.0347C12.2301 14.8334 10.8201 14.8334 8.00033 14.8334C5.18051 14.8334 3.77059 14.8334 2.8355 14.0347C2.70271 13.9213 2.57905 13.7977 2.46564 13.6649C1.66699 12.7298 1.66699 11.3199 1.66699 8.50008C1.66699 5.68026 1.66699 4.27035 2.46564 3.33525C2.57905 3.20247 2.70271 3.0788 2.8355 2.96539C3.77059 2.16675 5.18051 2.16675 8.00033 2.16675H9.00033"
-                                                        stroke="url(#paint1_linear_234_1149)" stroke-width="1.5"
-                                                        stroke-linecap="round" stroke-linejoin="round" />
-                                                    <path
-                                                        d="M14.333 4.83341C13.9398 5.23797 12.8932 6.83341 12.333 6.83341C11.7728 6.83341 10.7262 5.23797 10.333 4.83341M12.333 6.50008V2.16675"
-                                                        stroke="url(#paint2_linear_234_1149)" stroke-width="1.5"
-                                                        stroke-linecap="round" stroke-linejoin="round" />
-                                                    <defs>
-                                                        <linearGradient id="paint0_linear_234_1149" x1="14"
-                                                            y1="11.8331" x2="2" y2="11.8331"
-                                                            gradientUnits="userSpaceOnUse">
-                                                            <stop offset="0" stop-color="hsl(var(--base))" />
-                                                            <stop offset="0.298077" stop-color="hsl(var(--base-two))" />
-                                                            <stop offset="0.644231" stop-color="hsl(var(--base-three))" />
-                                                            <stop offset="1" stop-color="hsl(var(--base-four))" />
-                                                        </linearGradient>
-                                                        <linearGradient id="paint1_linear_234_1149" x1="14.3337"
-                                                            y1="14.8331" x2="1.66699" y2="14.8331"
-                                                            gradientUnits="userSpaceOnUse">
-                                                            <stop offset="0" stop-color="hsl(var(--base))" />
-                                                            <stop offset="0.298077" stop-color="hsl(var(--base-two))" />
-                                                            <stop offset="0.644231" stop-color="hsl(var(--base-three))" />
-                                                            <stop offset="1" stop-color="hsl(var(--base-four))" />
-                                                        </linearGradient>
-                                                        <linearGradient id="paint2_linear_234_1149" x1="14.333"
-                                                            y1="6.83329" x2="10.333" y2="6.83329"
-                                                            gradientUnits="userSpaceOnUse">
-                                                            <stop offset="0" stop-color="hsl(var(--base))" />
-                                                            <stop offset="0.298077" stop-color="hsl(var(--base-two))" />
-                                                            <stop offset="0.644231" stop-color="hsl(var(--base-three))" />
-                                                            <stop offset="1" stop-color="hsl(var(--base-four))" />
-                                                        </linearGradient>
-                                                    </defs>
-                                                </svg>
+                                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                class="sparkle">
+                                <defs>
+                                    <linearGradient id="starGradient">
+                                        <stop offset="0%" stop-color="hsl(var(--base))" />
+                                        <stop offset="29.81%" stop-color="hsl(var(--base-two))" />
+                                        <stop offset="64.42%" stop-color="hsl(var(--base-three))" />
+                                        <stop offset="100%" stop-color="hsl(var(--base-four))" />
+                                    </linearGradient>
+                                </defs>
+                                <path class="path" stroke-linejoin="round" stroke-linecap="round"
+                                    stroke="url(#starGradient)" fill="url(#starGradient)"
+                                    d="M14.187 8.096L15 5.25L15.813 8.096C16.0231 8.83114 16.4171 9.50062 16.9577 10.0413C17.4984 10.5819 18.1679 10.9759 18.903 11.186L21.75 12L18.904 12.813C18.1689 13.0231 17.4994 13.4171 16.9587 13.9577C16.4181 14.4984 16.0241 15.1679 15.814 15.903L15 18.75L14.187 15.904C13.9769 15.1689 13.5829 14.4994 13.0423 13.9587C12.5016 13.4181 11.8321 13.0241 11.097 12.814L8.25 12L11.096 11.187C11.8311 10.9769 12.5006 10.5829 13.0413 10.0423C13.5819 9.50162 13.9759 8.83214 14.186 8.097L14.187 8.096Z">
+                                </path>
+                                <path class="path" stroke-linejoin="round" stroke-linecap="round"
+                                    stroke="url(#starGradient)" fill="url(#starGradient)"
+                                    d="M6 14.25L5.741 15.285C5.59267 15.8785 5.28579 16.4206 4.85319 16.8532C4.42059 17.2858 3.87853 17.5927 3.285 17.741L2.25 18L3.285 18.259C3.87853 18.4073 4.42059 18.7142 4.85319 19.1468C5.28579 19.5794 5.59267 20.1215 5.741 20.715L6 21.75L6.259 20.715C6.40725 20.1216 6.71398 19.5796 7.14639 19.147C7.5788 18.7144 8.12065 18.4075 8.714 18.259L9.75 18L8.714 17.741C8.12065 17.5925 7.5788 17.2856 7.14639 16.853C6.71398 16.4204 6.40725 15.8784 6.259 15.285L6 14.25Z">
+                                </path>
+                                <path class="path" stroke-linejoin="round" stroke-linecap="round"
+                                    stroke="url(#starGradient)" fill="url(#starGradient)"
+                                    d="M6.5 4L6.303 4.5915C6.24777 4.75718 6.15472 4.90774 6.03123 5.03123C5.90774 5.15472 5.75718 5.24777 5.5915 5.303L5 5.5L5.5915 5.697C5.75718 5.75223 5.90774 5.84528 6.03123 5.96877C6.15472 6.09226 6.24777 6.24282 6.303 6.4085L6.5 7L6.697 6.4085C6.75223 6.24282 6.84528 6.09226 6.96877 5.96877C7.09226 5.84528 7.24282 5.75223 7.4085 5.697L8 5.5L7.4085 5.303C7.24282 5.24777 7.09226 5.15472 6.96877 5.03123C6.84528 4.90774 6.75223 4.75718 6.697 4.5915L6.5 4Z">
+                                </path>
+                            </svg>
                                                 <span class="download-text">@lang('Wait Few Moments...')</span>
                                             </a>
                                         </div>

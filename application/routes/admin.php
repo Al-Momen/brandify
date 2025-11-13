@@ -105,6 +105,13 @@ Route::middleware(['admin'])->group(function () {
         Route::post('status/{id}', 'status')->name('status');
     });
 
+    
+    // logo
+    Route::middleware('admin.permission:logo-management')->controller('logoController')->name('logo.')->prefix('logo')->group(function () {
+        Route::get('/index', 'index')->name('index');
+        Route::get('/view/{id}', 'view')->name('view');
+    });
+
 
     // KYC Management
     Route::middleware('admin.permission:kyc')->name('kyc.')->prefix('kyc')->controller('KycController')->group(function () {
@@ -139,18 +146,6 @@ Route::middleware(['admin'])->group(function () {
         Route::post('permission-update/{id}', 'setupUpdate')->name('setup.update');
         Route::get('login/{id}', 'login')->name('login');
         Route::post('permission/seeder', 'seeder')->name('seeder');
-    });
-
-    //Plan Management
-    Route::middleware('admin.permission:plan-management')->name('plan.')->prefix('plan')->controller('PlanController')->group(function () {
-        Route::get('/', 'index')->name('index');
-        Route::get('/subscriptions', 'subscriptions')->name('subscriptions');
-        Route::get('create', 'create')->name('create');
-        Route::post('store', 'store')->name('store');
-        Route::get('edit/{id}', 'edit')->name('edit');
-        Route::post('update/{id}', 'update')->name('update');
-        Route::post('/pricing/delete/{id}', 'destroy')->name('destroy');
-        Route::post('status/{id}', 'status')->name('status');
     });
 
 

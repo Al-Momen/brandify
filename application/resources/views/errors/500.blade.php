@@ -13,25 +13,31 @@
 
 <body>
     <!--==========================  404 Section Start  ==========================-->
-    <div class="error">
+<div class="error">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12">
-                    <div class="error__shape">
-                        <img src="{{ getImage(getFilePath('shape') . 'shape.png') }}" class="img-fluid"
-                            alt="@lang('shape-image')">
-                    </div>
-                    <div class="error__shape">
-                        <img src="{{ getImage(getFilePath('shape') . 'shape.png') }}" class="img-fluid"
-                            alt="@lang('shape-image')">
-                    </div>
-                    <div class="glove--base"></div>
-                    <div class="error__main py-60">
-                        <img src="{{ getImage(getFilePath('error') . '500.png') }}" alt="@lang('error-image')">
-                        <h2>500</h2>
-                        <h4>@lang('Page Not Found')</h4>
-                        <p>@lang('Internal server error temporarily unavailable.')</p>
-                        <a href="{{ route('home') }}" class="btn btn--base">@lang('Back to Home')</a>
+                    <div class="error__main">
+                        <div class="error__ripple">
+                            <div class="ripple__inner">
+                                <div class="error__sp"></div>
+                                <div class="error__sp"></div>
+                                <div class="error__sp"></div>
+                                <div class="error__sp"></div>
+                                <div class="error__sp"></div>
+                                <div class="error__content">
+                                    <div class="error__image">
+                                        <img src="{{ getImage(getFilePath('error') . '500.png') }}"
+                                            alt="@lang('image')">
+                                    </div>
+                                    <h2>404</h2>
+                                    <p>@lang('Whoops! Something Went Wrong')</p>
+
+                                    <a href="{{ route('home') }}"
+                                        class="btn btn--base white-space">@lang('Back to Home')</a>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

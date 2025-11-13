@@ -73,21 +73,10 @@ Route::middleware('auth')->name('user.')->group(function () {
 
             //Logo setting
             Route::controller('LogoController')->name('logo.')->prefix('logo')->group(function () {
-                Route::get('all-logo', 'allLogo')->name('all.logo');
-                Route::get('logo-view/{id}', 'view')->name('view');
-                Route::get('logo-details/{id}', 'logoDetails')->name('details');
                 Route::get('index', 'index')->name('index');
+                Route::get('view/{id}', 'view')->name('view');
                 Route::get('create', 'create')->name('create');
-                Route::post('store', 'store')->name('store');
                 Route::post('generate', 'generate')->name('generate');
-                Route::post('update/{id}', 'update')->name('update');
-                Route::post('status/{id}', 'status')->name('status');
-                Route::get('submission', 'submission')->name('submission');
-                Route::get('submission/details/{id}', 'submissionDetails')->name('submission.details');
-                Route::post('submit', 'answerSubmit')->name('submit');
-                Route::get('answer-list/{id}', 'answerList')->name('answer.user.list');
-                Route::get('answer-details/{id}', 'answerDetails')->name('answer.detail');
-                Route::post('answer-status/{status}/{id}', 'answerStatus')->name('answer.status');
             });
 
             //Profile setting

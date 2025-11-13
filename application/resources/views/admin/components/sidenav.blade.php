@@ -82,7 +82,6 @@
                                 @endadminHas
 
 
-
                                 @adminHas('subscriber-management')
                                     <li class="sidebar-menu-item {{ menuActive(['admin.subscriber.*']) }}">
                                         <a class="nav-link" href="{{ route('admin.subscriber.index') }}">
@@ -102,6 +101,13 @@
                         <a href="{{ route('admin.category.index') }}" class="nav-link ">
                             <i class="menu-icon fa-solid fa-table"></i>
                             <span class="menu-title"> @lang('Categories')</span>
+                        </a>
+                    </li>
+
+                    <li class="sidebar-menu-item {{ menuActive(['admin.logo.*']) }}">
+                        <a href="{{ route('admin.logo.index') }}" class="nav-link ">
+                            <i class="menu-icon fa-solid fa-photo-film"></i>
+                            <span class="menu-title"> @lang('Brand logo')</span>
                         </a>
                     </li>
                 @endadminHasAny

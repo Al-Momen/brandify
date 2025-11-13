@@ -17,6 +17,7 @@ use App\Rules\FileTypeValidate;
 use App\Models\AdminNotification;
 use App\Http\Controllers\Controller;
 use App\Models\Category;
+use App\Models\Logo;
 use App\Models\SurveyAnswer;
 use Illuminate\Support\Facades\Hash;
 
@@ -25,13 +26,14 @@ class AdminController extends Controller
 
     public function dashboard()
     {
-        $pageTitle              = 'Dashboard';
-        $userQuery              = User::query();
-        $withdrawQuery          = Withdrawal::query();
-        $depositQuery           = Deposit::query();
-        $supportTicketQuery     = SupportTicket::query();
-        $totalCategories        = Category::where('status',Status::CATEGORY_ENABLE)->count();
-        $openTickets            = (clone $supportTicketQuery)->where('status',Status::TICKET_OPEN)->count();
+        $pageTitle          = 'Dashboard';
+        $userQuery          = User::query();
+        $withdrawQuery      = Withdrawal::query();
+        $depositQuery       = Deposit::query();
+        $supportTicketQuery = SupportTicket::query();
+        $totalCategories    = Category::where('status',Status::CATEGORY_ENABLE)->count();
+        $totalLogos         = Logo::sum('logo_count');
+        $openTickets        = (clone $supportTicketQuery)->where('status',Status::TICKET_OPEN)->count();
 
         $widget                             = [];
         $widget['total_deposit_amount']     = (clone $depositQuery)->successful()->sum('amount');
@@ -40,6 +42,7 @@ class AdminController extends Controller
         $widget['withdraw_change']          = (clone $withdrawQuery)->approved()->sum('charge');
         $widget['total_categories']         = $totalCategories;
         $widget['open_ticket']              = $openTickets;
+        $widget['total_logos']              = $totalLogos;
 
         $transactionQuery = Transaction::query();
         $widget['plus_transactions']  = (clone $transactionQuery)->where('trx_type', '+')->count();
@@ -71,22 +74,21 @@ class AdminController extends Controller
         ];
 
 
-        $withdrawalsRaw = Withdrawal::selectRaw("SUM(amount) as amount, MONTHNAME(created_at) as month_name, MONTH(created_at) as month_num")
+        $logosRaw = Logo::selectRaw("SUM(logo_count) as logo_count, MONTHNAME(created_at) as month_name, MONTH(created_at) as month_num")
             ->whereYear('created_at', now()->year)
-            ->where('status', Status::PAYMENT_SUCCESS)
             ->groupBy('month_name', 'month_num')
             ->orderBy('month_num')
             ->get()
             ->keyBy('month_num');
 
-        $withdrawalsChart = [
+        $logosChart = [
             'labels' => $allMonths->values(),
-            'values' => $allMonths->keys()->map(function ($month) use ($withdrawalsRaw) {
-                return optional($withdrawalsRaw->get($month))->amount ?? 0;
+            'values' => $allMonths->keys()->map(function ($month) use ($logosRaw) {
+                return optional($logosRaw->get($month))->logo_count ?? 0;
             }),
         ];
 
-        return view('Admin::dashboard', compact('pageTitle', 'widget', 'withdrawalsChart', 'depositsChart', 'tickets', 'transactions'));
+        return view('Admin::dashboard', compact('pageTitle', 'widget', 'logosChart', 'depositsChart', 'tickets', 'transactions','totalLogos'));
     }
 
 

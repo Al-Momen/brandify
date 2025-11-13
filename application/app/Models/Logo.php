@@ -12,8 +12,14 @@ class Logo extends Model
         return $this->belongsTo(User::class);
     }
 
+    public function category()
+    {
+        return $this->belongsTo(Category::class);
+    }
+
     public function logo_images()
     {
-        return $this->belongsTo(LogoImage::class);
+        return $this->hasMany(LogoImage::class);
     }
+
 }

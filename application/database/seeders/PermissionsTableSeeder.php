@@ -155,6 +155,20 @@ class PermissionsTableSeeder extends Seeder
                 'type' => 1,
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now(),
+            ],[
+                'name' => 'Category Management',
+                'slug' => 'category-management',
+                'groupby' => 'Category Management',
+                'type' => 1,
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now(),
+            ],[
+                'name' => 'Logo Management',
+                'slug' => 'logo-management',
+                'groupby' => 'Logo Management',
+                'type' => 1,
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now(),
             ]
         ]);
     }

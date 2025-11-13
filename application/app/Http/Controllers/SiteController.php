@@ -212,6 +212,26 @@ class SiteController extends Controller
 
     public function generate(Request $request)
     {
+        // ip restriction
+        if (!auth()->check()) {
+            $ip = $request->ip(); 
+            $today = now()->format('Y-m-d');
+            $key = "summary_count_{$ip}_{$today}";
+
+            $count = cache()->get($key, 0);
+
+            $limit = 1; 
+
+            if ($count >= $limit) {
+                return response()->json([
+                    'status' => 'error',
+                    'message' => 'Please login to your account and purchase Credit.',
+                    'ip' => $ip,
+                ], 422);
+            }
+
+            cache()->put($key, $count + 1, now()->addDays(30));
+        }
 
         $apiKey = gs()->open_ai_key;
         $category = Category::where('id', $request->categoryId)->where('status', Status::CATEGORY_ENABLE)->first();
