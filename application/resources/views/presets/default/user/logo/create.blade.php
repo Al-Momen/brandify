@@ -43,7 +43,7 @@
                     </div>
 
                     <div class="create__logo__item">
-                        <div class="create__dropdown d-flex flex-wrap gap-2 justify-content-between" type="button">
+                        <div class="create__dropdown d-flex flex-wrap gap-2 justify-content-between">
                             <div>
                                 <img src="{{ getImage(getFilePath('shape') . 'dropdown3.svg') }}" alt="@lang('image')">
                                 @lang('Is Remove Background')
@@ -57,7 +57,7 @@
                         </div>
                     </div>
                     <div class="create__logo__item">
-                        <div class="create__dropdown" type="button">
+                        <div class="create__dropdown">
                             <label for="logo-count" class="form-label">@lang('Logo Count')</label>
                             <input id="logo-count" type="number" class="form-control" value="1" min="1"
                                 step="1" placeholder="@lang('Number of your logo')">
@@ -65,7 +65,7 @@
                     </div>
 
                     <div class="create__logo__item">
-                        <div class="create__dropdown" type="button">
+                        <div class="create__dropdown">
                             <label for="ai-prompt" class="form-label">@lang('AI Prompt')</label>
                             <textarea name="ai-prompt" class="form-control" id="ai-prompt" cols="30" rows="10"
                                 placeholder="@lang('Enter your prompt')"></textarea>

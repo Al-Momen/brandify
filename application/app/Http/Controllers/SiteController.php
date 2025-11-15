@@ -29,6 +29,7 @@ class SiteController extends Controller
         }
         $pageTitle = 'Home';
         $sections = Page::where('slug', '/')->first();
+
         return view('Template::home', compact('pageTitle', 'sections'));
     }
 
@@ -210,17 +211,14 @@ class SiteController extends Controller
         return back()->withNotify($notify);
     }
 
-    public function generate(Request $request)
+    public function checkSummaryCount()
     {
-        // ip restriction
         if (!auth()->check()) {
-            $ip = $request->ip(); 
+            $ip = request()->ip();
             $today = now()->format('Y-m-d');
             $key = "summary_count_{$ip}_{$today}";
-
             $count = cache()->get($key, 0);
-
-            $limit = 1; 
+            $limit = 1;
 
             if ($count >= $limit) {
                 return response()->json([
@@ -229,9 +227,27 @@ class SiteController extends Controller
                     'ip' => $ip,
                 ], 422);
             }
+        }
+
+        return response()->json([
+            'status' => 'success',
+
+        ], 200);
+    }
+
+    public function generate(Request $request)
+    {
+
+        // ip restriction
+        if (!auth()->check()) {
+            $ip = $request->ip();
+            $today = now()->format('Y-m-d');
+            $key = "summary_count_{$ip}_{$today}";
+            $count = cache()->get($key, 0);
 
             cache()->put($key, $count + 1, now()->addDays(30));
         }
+
 
         $apiKey = gs()->open_ai_key;
         $category = Category::where('id', $request->categoryId)->where('status', Status::CATEGORY_ENABLE)->first();
@@ -316,7 +332,8 @@ class SiteController extends Controller
             'status'  => 'success',
             'message' => ['success' => 'Logo generated successfully'],
             'data'    => $images,
-            'path'    => asset($basePath)
+            'path'    => asset($basePath),
+            'cache'   => $key,
         ]);
     }
 

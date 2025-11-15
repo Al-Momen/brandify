@@ -22,10 +22,10 @@
     <meta name="title" content="{{ __($title) }}">
     <meta name="description" content="{{ __($description) }}">
     <meta name="keywords" content="{{ implode(',', $seo->keywords) }}">
-    <link rel="shortcut icon" href="{{ siteFavicon() }}" type="image/x-icon">
+    <link rel="shortcut-icon" href="{{ urlencode(siteFavicon()) }}" type="image/x-icon">
 
     {{-- Apple --}}
-    <link rel="apple-touch-icon" href="{{ siteLogo() }}">
+    <link rel="apple-touch-icon" href="{{ urlencode(siteLogo()) }}">
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
     <meta name="apple-mobile-web-app-title" content="{{ __($title) }}">
@@ -40,10 +40,10 @@
     <meta property="og:type" content="website">
     <meta property="og:title" content="{{ __($socialTitle) }}">
     <meta property="og:description" content="{{ __($socialDescription) }}">
-    <meta property="og:image" content="{{ $image }}"/>
-    <meta property="og:image:type" content="image/{{ pathinfo($image, PATHINFO_EXTENSION) }}" />
-    <meta property="og:image:width" content="{{ $socialImageSize[0] }}" />
-    <meta property="og:image:height" content="{{ $socialImageSize[1] }}" />
+    <meta property="og:image" content="{{ $image }}">
+    <meta property="og:image:type" content="image/{{ pathinfo($image, PATHINFO_EXTENSION) }}">
+    <meta property="og:image:width" content="{{ $socialImageSize[0] }}">
+    <meta property="og:image:height" content="{{ $socialImageSize[1] }}">
     <meta property="og:url" content="{{ url()->current() }}">
 
     {{-- Twitter --}}

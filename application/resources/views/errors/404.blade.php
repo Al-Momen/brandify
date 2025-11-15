@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title> {{ $general->siteName(__('404')) }}</title>
     <link href="{{ asset('assets/common/css/bootstrap.min.css') }}" rel="stylesheet">
-    <link rel="shortcut icon" href="{{ siteFavicon() }}" type="image/x-icon">
+    <link rel="shortcut-icon" href="{{ siteFavicon() }}" type="image/x-icon">
     <link rel="stylesheet" href="{{ asset($activeTemplateTrue . 'css/main.css') }}">
 </head>
 

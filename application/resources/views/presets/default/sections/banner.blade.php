@@ -5,6 +5,12 @@
     $path = resource_path('views/presets/default/user/font-family/font.json');
     $jsonData = file_get_contents($path);
     $fonts = json_decode($jsonData, true);
+    if (!auth()->check()) {
+        $ip = request()->ip();
+        $today = now()->format('Y-m-d');
+        $key = "summary_count_{$ip}_{$today}";
+        $count = cache()->get($key, 0);
+    }
 
 @endphp
 
@@ -71,8 +77,7 @@
                                 </div>
                             </div>
                             <div class="create__logo__item">
-                                <div class="create__dropdown d-flex flex-wrap gap-2 justify-content-between"
-                                    type="button">
+                                <div class="create__dropdown d-flex flex-wrap gap-2 justify-content-between">
                                     <div>
                                         <img src="{{ getImage(getFilePath('shape') . 'dropdown3.svg') }}"
                                             alt="@lang('image')">
@@ -88,7 +93,7 @@
                             </div>
 
                             <div class="create__logo__item">
-                                <div class="create__dropdown" type="button">
+                                <div class="create__dropdown">
                                     <label for="logo-count" class="form-label">@lang('Logo Count')</label>
                                     <input id="logo-count" type="number" class="form-control" value="1"
                                         min="1" step="1" placeholder="@lang('Number of your logo')">
@@ -96,7 +101,7 @@
                             </div>
 
                             <div class="create__logo__item">
-                                <div class="create__dropdown" type="button">
+                                <div class="create__dropdown">
                                     <label for="ai-prompt" class="form-label">@lang('AI Prompt')</label>
                                     <textarea name="ai-prompt" class="form-control" id="ai-prompt" cols="30" rows="10"
                                         placeholder="@lang('Enter your prompt')"></textarea>
@@ -210,8 +215,6 @@
             if (lastImage) {
                 const wrapper = document.createElement('div');
                 wrapper.classList.add('last-banner-image');
-
-
                 lastImage.parentNode.insertBefore(wrapper, lastImage);
                 wrapper.appendChild(lastImage);
             }
@@ -253,6 +256,7 @@
             const modalBody = $(modalEl).find('.view-details-card-content__body');
 
             $('#generate-logo-btn').on('click', function() {
+
                 let brandName = $('#brand-name').val();
                 let removeBackground = $('#remove-background').is(':checked') ? true : false;
                 let logoCount = parseInt($('#logo-count').val()) || 1;
@@ -263,12 +267,14 @@
 
                 let colorCode = $('.colorCode').val();
                 let prompt = $('#ai-prompt').val();
-
                 let url = "";
+
                 @if (auth()->check())
                     url = "{{ route('user.logo.generate') }}";
+                    logoCount = logoCount;
                 @else
                     url = "{{ route('logo.generate') }}";
+                    logoCount = 1;
                 @endif
 
                 const validations = [{
@@ -295,11 +301,20 @@
                 ];
 
                 for (const v of validations) {
-                    if (!v.value || v.value === 0) {
+                    if (!v.value || v.value == 0) {
                         notify('error', v.message);
                         return;
                     }
                 }
+
+                let isAllowed = checkUserLimit();
+
+                if (!isAllowed) {
+                    notify('error', 'Please login to your account and purchase Credit.');
+                    return false;
+                }
+
+
 
                 modalBody.empty();
                 appendUserData(modalBody, {
@@ -326,6 +341,7 @@
                         prompt
                     },
                     beforeSend: function() {
+
                         logoModal.show();
                     },
                     success: function(res) {
@@ -448,6 +464,19 @@
                     </div>
                     `
                 container.html(html);
+            }
+
+            function checkUserLimit() {
+               
+                let url = "{{route('check.summary')}}";
+                $.get(url, function(res) {
+                    if (res.status == 'error') {
+                        return false;
+                    } else {
+                        return true;
+                    }
+                });
+                return true;
             }
 
         });

@@ -112,7 +112,7 @@
         </div>
     </div>
     <div class="footer__copyright">
-        <p>@php echo $contactSection->data_values->website_footer; @endphp</p>
+        <div>@php echo $contactSection->data_values->website_footer; @endphp</div>
     </div>
 </footer>
 <!-- ==================== Footer End Here ==================== -->

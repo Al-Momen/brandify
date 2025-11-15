@@ -35,6 +35,7 @@ Route::controller('SiteController')->group(function () {
  
     //  generate logo route
     Route::post('generate', 'generate')->name('logo.generate');
+    Route::get('check-summary', 'checkSummaryCount')->name('check.summary');
 
     Route::get('/{slug}', 'pages')->name('pages');
     Route::get('/', 'index')->name('home');

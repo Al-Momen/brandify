@@ -70,9 +70,9 @@
                                 @csrf
                                 <div class="col-lg-6">
                                     <div class="auth__form__single">
-                                        <label for="fullname" class="form-label">@lang('Username')</label>
-                                        <input id="fullname" type="text" id="userName" class="form-control"
-                                            name="name"value="@if(auth()->user()){{auth()->user()->fullname}}@else{{ old('name') }}@endif"
+                                        <label for="userName" class="form-label">@lang('Username')</label>
+                                        <input type="text" id="userName" class="form-control"
+                                            name="name" value="@if(auth()->user()){{auth()->user()->fullname}}@else{{ old('name') }}@endif"
                                             @if (auth()->user()) readonly @endif required
                                             placeholder="@lang('Enter Username')">
                                     </div>
@@ -90,7 +90,7 @@
                                     <div class="auth__form__single">
                                         <label for="subject" class="form-label">@lang('Subject')</label>
                                         <input id="subject" type="text" class="form-control" name="subject"
-                                            placeholder="@lang('Subject')" value="{{ old('subject') }}"required>
+                                            placeholder="@lang('Subject')" value="{{ old('subject') }}" required>
                                     </div>
                                 </div>
                                 <div class="auth__form__single">
